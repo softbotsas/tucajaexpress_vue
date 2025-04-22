@@ -37,7 +37,7 @@
         <!-- Logo -->
         <div class="header-logo">
           <RouterLink to="/">
-            <img src="/images/logo-light.png" alt="Tu Caja Express logo" />
+            <img src="/images/logo-light.png" alt="Tu Caja Express Logo" />
           </RouterLink>
         </div>
 
@@ -48,7 +48,7 @@
             <li><RouterLink to="/nosotros">Conócenos</RouterLink></li>
             <li><RouterLink to="/puerta-puerta">Puerta a Puerta</RouterLink></li>
             <li><RouterLink to="/nuestras-rutas">Rutas en EEUU</RouterLink></li>
-            <li><RouterLink to="/contacto">Contáctanos</RouterLink></li>
+            <li><RouterLink to="/contactanos">Contáctanos</RouterLink></li>
           </ul>
         </nav>
       </div>
@@ -100,7 +100,7 @@ onBeforeUnmount(() => {
 }
 
 .header-logo img {
-  height: 60px;
+  height: 50px;
   display: block;
 }
 
@@ -145,7 +145,7 @@ onBeforeUnmount(() => {
     height: 3px;
     bottom: -6px;
     left: 0;
-    background-color: #f4a261;
+    background-color: #f30d0a;
     transition: width 0.3s;
   }
 
@@ -154,7 +154,7 @@ onBeforeUnmount(() => {
   }
 
   .desktop-nav li a:hover {
-    color: #f4a261;
+    color: #f01f1c;
   }
 }
 </style>

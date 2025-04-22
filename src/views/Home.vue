@@ -66,7 +66,7 @@
     </div>
     <!-- Services End -->
     <MapaInteractivo/>
-    
+    <PreguiaComp />
 </template>
 
 <style setup>
@@ -74,4 +74,5 @@
 </style>
 <script setup>
 import MapaInteractivo from '@/components/MapaInteractivo.vue';
+import PreguiaComp from '@/components/PreguiaComp.vue'
 </script>
