@@ -10,14 +10,7 @@
     </div>
 
     <!-- Contenedor interactivo con avión -->
-    <div class="svg-interactive-container">
-      <img 
-        src="/images/avion.png" 
-        alt="Avión" 
-        class="floating-plane"
-        :style="planePosition"
-      />
-      
+    <div class="svg-interactive-container">     
       <svg
         id="mapa"
         viewBox="620 433 100 350"
@@ -98,14 +91,14 @@
           
           <div class="modal-header">
             <h3>{{ selectedCountry.name }}</h3>
-            <div class="country-flag-placeholder">
-              [BANDERA DE {{ selectedCountry.name.toUpperCase() }}]
+            <div class="country-flag">
+              <img :src="selectedCountry.flag" :alt="`Bandera de ${selectedCountry.name}`" class="flag-image">
             </div>
           </div>
-          
+
           <div class="modal-body">
-            <div class="country-preview-placeholder">
-              [IMAGEN DE PREVIEW PARA {{ selectedCountry.name.toUpperCase() }}]
+            <div class="country-preview">
+              <img :src="selectedCountry.preview" :alt="`Vista de ${selectedCountry.name}`" class="preview-image">
             </div>
             
             <div class="country-info">
@@ -159,31 +152,41 @@ export default {
         id: 'mex', 
         name: 'México', 
         route: '/paises/mexico',
-        path: 'M248.25,196.479c0.891-0.467,1.166-0.818...'
+        path: 'M248.25,196.479c0.891-0.467,1.166-0.818...',
+        flag: '/images/flags/mexico.png', // Ruta a la bandera
+        preview: '/images/previews/mexico.jpeg' // Ruta a la imagen preview
       },
       { 
         id: 'gua', 
         name: 'Guatemala', 
         route: '/paises/guatemala',
-        path: 'M241.28,220.08v-1.246l1.325-0.351...'
+        path: 'M241.28,220.08v-1.246l1.325-0.351...',
+        flag: '/images/flags/guatemala.png',
+        preview: '/images/previews/guatemala.jpeg' // Ruta a la imagen preview
       },
       { 
         id: 'sal', 
         name: 'El Salvador', 
         route: '/paises/salvador',
-        path: 'M247.587,221.366l-0.868-0.623...'
+        path: 'M247.587,221.366l-0.868-0.623...',
+        flag: '/images/flags/salvador.png',
+        preview: '/images/previews/salvador.jpeg' // Ru
       },
       { 
         id: 'hon', 
         name: 'Honduras', 
         route: '/paises/honduras',
-        path: 'M250.283,224.287l0.32-1.285...'
+        path: 'M250.283,224.287l0.32-1.285...',
+        flag: '/images/flags/honduras.png',
+        preview: '/images/previews/honduras.jpeg' // Ru
       },
       { 
         id: 'nic', 
         name: 'Nicaragua', 
         route: '/paises/nicaragua',
-        path: 'M255.345,232.32c0.069,0.088...'
+        path: 'M255.345,232.32c0.069,0.088...',
+        flag: '/images/flags/nicaragua.png',
+        preview: '/images/previews/nicaragua.jpeg' // Ru
       }
     ];
 
@@ -294,15 +297,68 @@ export default {
 
 .svg-interactive-container {
   position: relative;
-  background: linear-gradient(135deg, #f5f7fa, #e0e5ec);
+  background: 
+    /* Capa oscura semi-transparente */
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    /* Imagen de fondo con desenfoque */
+    url('/images/background.jpeg') center/cover no-repeat;
+  
+  /* Efecto de desenfoque para el fondo */
+  backdrop-filter: blur(2px);
+  
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  overflow: visible; /* Cambiado para permitir el zoom */
-  border: 2px solid #e0e0e0;
+  overflow: visible;
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 1000px; /* Ajustado */
-  margin: 0 auto; /* Centrado */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .svg-interactive-container::before {
+    filter: blur(2px) brightness(0.6);
+  }
+  .map-svg {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+  }
+}
+
+/* Ajusta el SVG para que se vea bien sobre el fondo */
+.map-svg {
+  width: 100%;
+  height: 600px;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+  transform: scale(1.3);
+  transform-origin: center;
+  /* Añade sombra para mejor contraste */
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Mejora la visibilidad de los países */
+.country {
+  fill: #515551;
+  stroke: #ffffff;
+  stroke-width: 0.75;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.9; /* Ligera transparencia */
+}
+
+.country:hover {
+  fill: #3498db;
+  opacity: 1;
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+/* Para un efecto vintage */
+.svg-interactive-container::before {
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('/images/old-map-texture.jpg') center/cover no-repeat;
+  filter: sepia(0.3) brightness(0.8) contrast(1.2);
 }
 
 .map-svg {
@@ -315,6 +371,38 @@ export default {
   transform-origin: center; /* Escala desde el centro */
 }
 
+
+.country-preview {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.preview-image:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .country-flag {
+    width: 80px;
+    height: 50px;
+  }
+  
+  .country-preview {
+    height: 150px;
+  }
+}
 .floating-plane {
   position: absolute;
   width: 100px; /* Más grande */

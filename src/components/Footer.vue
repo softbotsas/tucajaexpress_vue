@@ -1,313 +1,284 @@
 <template>
-  <footer class="footer">
-    <div class="waves">
-      <div class="wave" id="wave1"></div>
-      <div class="wave" id="wave2"></div>
-      <div class="wave" id="wave3"></div>
-      <div class="wave" id="wave4"></div>
-    </div>
-    
-    <div class="footer-content">
-      <div class="footer-section about">
-        <h2 class="logo-text">MiApp</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt.
-        </p>
-        <div class="contact">
-          <span><i class="fas fa-phone"></i> +123 456 789</span>
-          <span><i class="fas fa-envelope"></i> info@miapp.com</span>
+  <footer class="site-footer style-constellation">
+
+    <!-- Capas de fondo animadas (detrás del contenido) -->
+    <!-- Las posicionaremos absolutamente respecto al footer -->
+    <div class="animated-bg layer1"></div>
+    <div class="animated-bg layer2"></div>
+
+    <!-- Contenedor Principal (aseguramos que esté sobre el fondo) -->
+    <div class="container footer-content">
+
+      <!-- Fila Superior: Información principal -->
+      <div class="footer-main-grid">
+
+        <!-- Sección Izquierda: Marca y Descripción -->
+        <div class="footer-brand-info">
+          <!-- Logo Placeholder -->
+          <img src="/images/logo-light.png" alt="TuCajaExpress Logo" class="footer-logo">
+          <p class="footer-tagline">Conectando tus mundos, un envío a la vez. <br> USA <i class="fas fa-exchange-alt"></i> MX & Centroamérica.</p>
+           <div class="footer-social-icons">
+             <!-- Links Redes Sociales -->
+             <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-square"></i></a>
+             <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+             <a href="#" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+          </div>
         </div>
-        <div class="socials">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
+
+        <!-- Sección Central: Enlaces Rápidos -->
+        <nav class="footer-nav">
+          <h4 class="footer-heading">Explora</h4>
+          <ul class="footer-link-list">
+            <!-- Links -->
+            <li><router-link to="/servicios">Servicios</router-link></li>
+            <li><router-link to="/paises">Cobertura</router-link></li>
+            <li><router-link to="/rastreo">Rastreo</router-link></li>
+            <li><router-link to="/faq">Ayuda (FAQ)</router-link></li>
+            <li><router-link to="/contacto">Contacto</router-link></li>
+          </ul>
+        </nav>
+
+        <!-- Sección Derecha: Acciones y Contacto -->
+        <div class="footer-actions">
+          <h4 class="footer-heading">Sé parte</h4>
+          <ul class="footer-link-list">
+            <!-- Links Acción -->
+             <li><router-link to="/aplicar-agente" class="action-link agent"><i class="fas fa-store-alt"></i> Convertirse en Agente</router-link></li>
+             <li><router-link to="/cotizar" class="action-link quote"><i class="fas fa-calculator"></i> Obtener Cotización</router-link></li>
+          </ul>
+          <h4 class="footer-heading contact-heading">Contacto Rápido</h4>
+           <!-- Contacto Rápido -->
+           <a href="tel:+13051234567" class="contact-link"><i class="fas fa-phone"></i> +1 (305) 123-4567</a>
+           <a href="mailto:info@tucajaexpress.com" class="contact-link"><i class="fas fa-envelope"></i> info@tucajaexpress.com</a>
+        </div>
+
+      </div> <!-- Fin footer-main-grid -->
+
+      <!-- Fila Inferior: Copyright y Legales -->
+      <div class="footer-bottom-bar">
+        <p>© {{ currentYear }} TuCajaExpress. Experiencia Logística Global.</p>
+        <div class="legal-links">
+            <!-- Links Legales -->
+            <router-link to="/politica-privacidad">Privacidad</router-link>
+            <span>|</span>
+            <router-link to="/terminos-condiciones">Términos</router-link>
         </div>
       </div>
-      
-      <div class="footer-section links">
-        <h2>Enlaces Rápidos</h2>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Productos</a></li>
-          <li><a href="#">Nosotros</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section contact-form">
-        <h2>Contacto</h2>
-        <form>
-          <input type="email" class="text-input contact-input" placeholder="Tu email...">
-          <textarea class="text-input contact-input" placeholder="Tu mensaje..."></textarea>
-          <button type="submit" class="btn btn-primary">
-            <i class="fas fa-envelope"></i> Enviar
-          </button>
-        </form>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      &copy; {{ currentYear }} MiApp | Diseñado con ❤️ para Vue 3
-    </div>
+
+    </div> <!-- Fin container -->
   </footer>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
+<script setup>
+import { ref } from 'vue';
+import 'animate.css'; // Si usas clases animate__
 
-export default {
-  name: 'AnimatedFooter',
-  setup() {
-    const currentYear = ref(new Date().getFullYear());
-    
-    // Animación de las olas
-    onMounted(() => {
-      const waves = document.querySelectorAll('.wave');
-      waves.forEach((wave, index) => {
-        wave.style.animationDelay = `${index * 0.25}s`;
-      });
-    });
-    
-    return {
-      currentYear
-    };
-  }
-}
+const currentYear = ref(new Date().getFullYear());
+// Asegúrate que FontAwesome funciona y los iconos están en main.js
 </script>
 
 <style scoped>
-/* Estilos base */
-.footer {
-  background: linear-gradient(135deg, #1F1F2E 0%, #2a2a3a 100%);
-  color: white;
-  padding: 80px 0 0;
-  position: relative;
-  font-family: 'Arial', sans-serif;
+/* --- Variables --- */
+:root {
+  --footer-bg-start: #1f2937; /* Gris azulado oscuro */
+  --footer-bg-end: #111827;   /* Azul noche muy oscuro */
+  --text-primary-light: #f9fafb; /* Casi blanco */
+  --text-secondary-light: #d1d5db; /* Gris claro más visible */
+  --accent-color: #3b82f6;
+  --accent-color-hover: #2563eb;
+  --highlight-color: #f59e0b;
+  --font-family: 'Poppins', sans-serif;
+  --border-radius-md: 6px;
+  --footer-top-margin: 100px; /* <<< ESPACIADO SUPERIOR >>> */
+  /* Colores y opacidad fondo animado - Ajusta la opacidad aquí! */
+  --animated-bg-line-color: rgba(255, 255, 255, 0.05); /* Más opaco para prueba */
+  --animated-bg-opacity: 1; /* Opacidad de la capa contenedora */
+}
+
+/* --- Estructura Principal del Footer --- */
+.site-footer.style-constellation {
+  /* === FONDO OSCURO BASE (Importante!) === */
+  background: linear-gradient(160deg, var(--footer-bg-start), var(--footer-bg-end));
+  color: var(--text-secondary-light);
+  padding-bottom: 40px; /* Padding inferior */
+  position: relative; /* Para ::before y capas de fondo */
   overflow: hidden;
+  margin-top: var(--footer-top-margin); /* <<< ESPACIADO SUPERIOR APLICADO >>> */
 }
 
-/* Efecto de olas animadas */
-.waves {
-  position: absolute;
-  top: -100px;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  margin-bottom: -7px;
-}
-
-.wave {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.2)' fill-opacity='1' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-  position: absolute;
-  width: 200%;
-  height: 100%;
-  transform: translate3d(0, 0, 0);
-  animation: wave 10s linear infinite;
-  opacity: 0.8;
-}
-
-#wave1 {
-  z-index: 10;
-  animation-delay: 0s;
-  bottom: 0;
-}
-
-#wave2 {
-  z-index: 9;
-  animation-delay: -5s;
-  bottom: 10px;
-  opacity: 0.5;
-}
-
-#wave3 {
-  z-index: 8;
-  animation-delay: -2s;
-  bottom: 15px;
-  opacity: 0.2;
-}
-
-#wave4 {
-  z-index: 7;
-  animation-delay: -7s;
-  bottom: 20px;
-  opacity: 0.7;
-}
-
-@keyframes wave {
-  0% {
-    transform: translateX(0) translateZ(0) scaleY(1);
-  }
-  50% {
-    transform: translateX(-25%) translateZ(0) scaleY(0.5);
-  }
-  100% {
-    transform: translateX(-50%) translateZ(0) scaleY(1);
-  }
-}
-
-/* Contenido del footer */
-.footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  z-index: 10;
-}
-
-.footer-section {
-  flex: 1;
-  min-width: 300px;
-  padding: 20px;
-  margin: 10px;
-}
-
-.logo-text {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  position: relative;
-  display: inline-block;
-}
-
-.logo-text::after {
+/* --- Divisor Superior (Usaremos un borde superior grueso con gradiente) --- */
+.site-footer.style-constellation::before {
   content: '';
   position: absolute;
-  bottom: -5px;
+  top: 0;
   left: 0;
-  width: 50px;
-  height: 3px;
-  background: white;
-  transition: width 0.3s ease;
+  right: 0;
+  height: 5px; /* Grosor de la línea superior */
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  opacity: 0.5; /* Sutil */
+  z-index: 3; /* Encima del fondo animado */
 }
 
-.logo-text:hover::after {
-  width: 100%;
-}
-
-.footer-section p {
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.contact span {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
-}
-
-.contact i {
-  margin-right: 10px;
-}
-
-.socials {
-  margin-top: 20px;
-}
-
-.socials a {
-  color: white;
-  font-size: 1.5rem;
-  margin-right: 15px;
-  transition: transform 0.3s ease, color 0.3s ease;
-  display: inline-block;
-}
-
-.socials a:hover {
-  transform: translateY(-5px);
-  color: #f1c40f;
-}
-
-.footer-section.links ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-section.links li {
-  margin-bottom: 10px;
-}
-
-.footer-section.links a {
-  color: white;
-  text-decoration: none;
-  transition: padding-left 0.3s ease;
-  display: inline-block;
-}
-
-.footer-section.links a:hover {
-  padding-left: 10px;
-  color: #f1c40f;
-}
-
-.footer-section.contact-form .text-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  transition: background 0.3s ease;
-}
-
-.footer-section.contact-form .text-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.footer-section.contact-form .text-input:focus {
-  background: rgba(255, 255, 255, 0.3);
-  outline: none;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background: #f1c40f;
-  color: #333;
-}
-
-.btn-primary:hover {
-  background: #f39c12;
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer inferior */
-.footer-bottom {
-  text-align: center;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.2);
-  margin-top: 40px;
+.footer-content {
+  padding-top: 70px; /* Espacio inicial debajo del borde superior */
   position: relative;
-  z-index: 10;
+  z-index: 2; /* Encima del fondo animado */
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .footer-section {
-    flex: 100%;
-    text-align: center;
-  }
-  
-  .logo-text::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .footer-section.links a:hover {
-    padding-left: 0;
-  }
-  
-  .socials a {
-    margin: 0 10px;
-  }
+/* ================================================== */
+/* ==      FONDO ANIMADO CONSTELACIÓN             == */
+/* ================================================== */
+/* Usaremos sólo una capa ::after para simplicidad y rendimiento */
+.site-footer.style-constellation::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%; /* Ancho muy grande para asegurar repetición */
+  height: 300%;
+  z-index: 0; /* Detrás de TODO */
+  pointer-events: none;
+  background-image:
+    /* Patrón principal de puntos (estrellas) */
+    radial-gradient(var(--text-primary-light) 0.5px, transparent 1px),
+    radial-gradient(var(--text-primary-light) 0.5px, transparent 1px);
+  background-size: 100px 100px, 150px 150px; /* Diferentes tamaños para variedad */
+  background-position: 0 0, 50px 50px; /* Posiciones iniciales distintas */
+  opacity: var(--animated-bg-opacity); /* Opacidad controlable */
+  animation: starsMove 120s linear infinite; /* Animación LENTA */
+  filter: blur(0.3px); /* Un desenfoque muy leve */
 }
+
+
+/* Animación más simple, solo mueve la posición del fondo */
+@keyframes starsMove {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(-100px, -50px); } /* Ajusta el desplazamiento */
+}
+
+
+/* Ocultar divs de fondo anteriores si aún los tienes en el template */
+.animated-bg { display: none; }
+
+/* ================================================== */
+/* ==      ESTILOS DEL CONTENIDO (Revisados)       == */
+/* ================================================== */
+
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr;
+  gap: 40px 30px; /* row-gap column-gap */
+  margin-bottom: 60px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Columna Izquierda: Marca --- */
+.footer-brand-info {}
+.footer-logo { display: block; max-width: 170px; margin-bottom: 25px; }
+.footer-tagline { font-size: 1rem; line-height: 1.7; margin-bottom: 30px; color: var(--text-primary-light); opacity: 0.95; }
+.footer-tagline i { color: var(--accent-color); margin: 0 6px; }
+.footer-social-icons { display: flex; gap: 20px; }
+.footer-social-icons a { color: var(--text-secondary-light); font-size: 1.6rem; transition: all 0.3s ease; }
+.footer-social-icons a:hover { color: white; transform: translateY(-3px) scale(1.1); }
+
+/* --- Columnas Central y Derecha --- */
+.footer-heading {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600; /* Más Bold */
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Línea sutil debajo */
+  padding-bottom: 10px;
+}
+.footer-heading::after { display: none; } /* Quitar la línea de color */
+.footer-heading.contact-heading { margin-top: 30px; }
+
+.footer-link-list { list-style: none; padding: 0; margin: 0; }
+.footer-link-list li { margin-bottom: 15px; }
+.footer-link-list a {
+  color: var(--text-secondary-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease, letter-spacing 0.3s ease; /* Animar espaciado */
+  display: inline-block;
+}
+.footer-link-list a:hover {
+  color: white;
+  letter-spacing: 0.5px; /* Ligero ensanchamiento */
+}
+
+/* Enlaces de Acción */
+.action-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 6px 0; /* Más espacio vertical */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.action-link i { color: var(--accent-color); font-size: 1.1em; width: 22px; text-align: center;}
+.action-link.agent { color: var(--highlight-color); }
+.action-link.agent i { color: var(--highlight-color); }
+.action-link:hover { color: white !important; /* Forzar blanco al hover */ }
+.action-link.agent:hover { color: #ffda77 !important; /* Dorado más claro */ }
+
+
+/* Contacto Rápido */
+.contact-link {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text-secondary-light); text-decoration: none;
+  font-size: 0.95rem; margin-bottom: 12px; transition: color 0.3s ease;
+}
+.contact-link:hover { color: white; }
+.contact-link i { color: var(--accent-color); width: 22px; text-align: center; }
+
+/* --- Fila Inferior --- */
+.footer-bottom-bar {
+  padding-top: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 0.88rem; /* Un poco más grande */
+  color: var(--text-secondary-light);
+  opacity: 0.8; /* Ligeramente transparente */
+}
+.footer-bottom-bar p { margin: 0; }
+.legal-links { display: flex; gap: 10px; align-items: center; }
+.legal-links a { color: inherit; text-decoration: none; transition: color 0.3s ease, text-decoration 0.3s ease; }
+.legal-links a:hover { color: white; text-decoration: underline; }
+.legal-links span { margin: 0 8px; opacity: 0.5; }
+
+/* --- Responsive --- */
+@media (max-width: 992px) {
+  .footer-main-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .footer-brand-info { margin-bottom: 20px;} /* Espacio extra si se apila primero */
+}
+@media (max-width: 768px) {
+  :root { --footer-top-margin: 80px; }
+  .footer-main-grid { grid-template-columns: 1fr 1fr; gap: 45px 30px; }
+  .footer-brand-info, .footer-actions { /* Marca y Acciones/Contacto ocupan ancho completo */
+      grid-column: span 2;
+      text-align: center;
+   }
+  .footer-nav { /* Los links rápidos se centran también */
+       text-align: center;
+   }
+  .footer-logo { margin-left: auto; margin-right: auto; }
+  .footer-social-icons { justify-content: center; }
+  .action-link, .contact-link { justify-content: center; }
+  .footer-heading { text-align: center; border-bottom: none; } /* Sin línea inferior en tablet/móvil */
+  .footer-heading::after { display: none;}
+
+}
+@media (max-width: 576px) {
+    :root { --footer-top-margin: 60px; }
+     .footer-content { padding-top: 60px; } /* Menos padding superior */
+     .footer-main-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+     .footer-brand-info, .footer-actions { grid-column: span 1; } /* Resetear */
+     .footer-bottom-bar { flex-direction: column; text-align: center; gap: 12px;}
+     .site-footer::after { animation-duration: 80s; } /* Acelerar un poco la animación en móvil */
+}
+
 </style>
