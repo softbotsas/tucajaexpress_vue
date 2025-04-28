@@ -126,7 +126,7 @@
             <p class="section-intro text-center">Descubre por qué somos la opción preferida para tus envíos.</p>
             <div class="difference-item animate__animated animate__fadeInLeft">
               <div class="difference-image">
-                 <img src="https://placehold.co/500x400/6366f1/ffffff?text=Servicio+Bilingüe+Cercano" alt="Atención personalizada Tu Caja Express">
+                 <img src="/images/atencion.jpg" alt="Atención personalizada Tu Caja Express">
               </div>
               <div class="difference-text">
                 <h3>Atención Personalizada</h3>

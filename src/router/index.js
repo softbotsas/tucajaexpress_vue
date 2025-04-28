@@ -7,11 +7,13 @@ import Paises from '../views/Paises.vue'
 import Mexico from '../components/coverage/Mexico.vue'
 import Guatemala from '../components/coverage/Guatemala.vue'
 import Conocenos from '../views/Conocenos.vue'
+import Puerta from '../views/Puerta.vue'
 
 const routes = [
   { path: '/', name: 'inicio', component: InicioView },
   { path: '/contactanos', name: 'Contactanos', component: Contactanos },
-  { path: '/nosotros', name: 'Conocenos', component: Conocenos },
+  { path: '/conocenos', name: 'Conocenos', component: Conocenos },
+  { path: '/puerta-puerta', name: 'Puerta a Puerta', component: Puerta },
     {
     path: '/paises',
     name: 'Paises',

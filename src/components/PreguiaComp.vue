@@ -2,6 +2,7 @@
   <div>
     <!-- Contenedor del Widget Completo (Botón + Texto Hint) -->
     <div class="preguia-widget-container">
+      
       <!-- Texto Hint (Aparece periódicamente) -->
       <transition name="hint-slide">
         <div class="preguia-text-hint" v-if="showTextHint">

@@ -45,7 +45,7 @@
         <nav class="desktop-nav">
           <ul>
             <li><RouterLink to="/">Inicio</RouterLink></li>
-            <li><RouterLink to="/nosotros">Conócenos</RouterLink></li>
+            <li><RouterLink to="/conocenos">Conócenos</RouterLink></li>
             <li><RouterLink to="/paises">Paises</RouterLink></li>
             <li><RouterLink to="/puerta-puerta">Puerta a Puerta</RouterLink></li>
             <li><RouterLink to="/nuestras-rutas">Rutas en EEUU</RouterLink></li>
