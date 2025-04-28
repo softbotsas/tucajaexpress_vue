@@ -123,7 +123,7 @@
 
 <style setup>
 .tracking-button {
-  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  background: linear-gradient(135deg, #f30d0a, #2727b3);
   color: white;
   border: none;
   padding: 18px 36px;
