@@ -98,7 +98,7 @@
   <script setup>
   import { ref, computed, onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import axios from 'axios'; // Asegúrate de importar axios
+  import axios from 'axios'; 
   
   const route = useRoute();
   const router = useRouter();
@@ -229,7 +229,7 @@
     console.log("Consultando API:", apiUrl); // Para depuración
   
     try {
-      const response = await axios.get(apiUrl);
+      const response = await axios.post(apiUrl);
       console.log("Respuesta API:", response.data); // Para depuración
   
       // Verificar si la API respondió correctamente y si success es true
