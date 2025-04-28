@@ -8,12 +8,14 @@ import Mexico from '../components/coverage/Mexico.vue'
 import Guatemala from '../components/coverage/Guatemala.vue'
 import Conocenos from '../views/Conocenos.vue'
 import Puerta from '../views/Puerta.vue'
+import ElSalvador from '@/components/coverage/El-Salvador.vue'
 
 const routes = [
   { path: '/', name: 'inicio', component: InicioView },
   { path: '/contactanos', name: 'Contactanos', component: Contactanos },
   { path: '/conocenos', name: 'Conocenos', component: Conocenos },
   { path: '/puerta-puerta', name: 'Puerta a Puerta', component: Puerta },
+  { path: '/el-salvador', name: 'El Salvador', component: ElSalvador },
   {
     path: '/tracking-results',
     name: 'tracking-results',
@@ -27,6 +29,11 @@ const routes = [
     name: 'Paises',
     component: Paises,
     children: [
+      {
+        path: 'el-salvador',
+        name: 'El Salvador',
+        component: ElSalvador
+      },
       {
         path: 'mexico',
         name: 'Mexico',

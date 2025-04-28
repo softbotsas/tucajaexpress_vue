@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <!-- Contenedor del Widget Completo (Botón + Texto Hint) -->
     <div class="preguia-widget-container">
       
@@ -40,6 +41,15 @@
         </button>
 
         <div class="preguia-content">
+          <!-- Logo agregado aquí -->
+          <div class="logo-container">
+            <img 
+              src="/images/logo-light.png" 
+              alt="Logo" 
+              class="preguia-logo"
+            >
+          </div>
+          
           <h3>¡Inicia tu Preguía ahora!</h3>
           <p>Escanea el código QR o haz clic en el enlace</p>
 
@@ -229,6 +239,17 @@ export default {
     transform: translateX(0);
 }
 
+/* Estilos del logo */
+.logo-container {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.preguia-logo {
+  max-width: 180px;
+  height: auto;
+  margin: 0 auto;
+}
 
 /* Estilos del botón flotante (ajustados) */
 .preguia-floating-btn {
@@ -486,7 +507,6 @@ export default {
        margin-right: 10px;
    }
 
-
   /* Popup ocupa toda la pantalla */
   .preguia-popup {
     max-width: 100%;
@@ -496,6 +516,11 @@ export default {
   .preguia-content {
     padding: 50px 20px 30px 20px; /* Ajustar padding */
     justify-content: flex-start; /* Alinear arriba en móvil */
+  }
+
+  /* Ajustes para el logo en móvil */
+  .preguia-logo {
+    max-width: 140px;
   }
 
   .qr-image {
