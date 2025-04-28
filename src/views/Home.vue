@@ -1,20 +1,20 @@
 <template>
-    <!-- Header Start -->
-    <div class="jumbotron2 jumbotron-fluid mb-5">
-        <div class="container text-center py-5">
-            <h1 class="text-primary mb-4">Puerta a puerta</h1>
-            <h1 class="text-white display-3 mb-5">Paqueteria Mexico y Centroamerica</h1>
-            <div class="mx-auto" style="width: 100%; max-width: 600px;">
-                <div class="input-group">
-                    <input v-model="numero_guia" type="text" class="form-control border-light" style="padding: 30px;" placeholder="Tu guía de Envio">
-                    <div class="input-group-append">
-
-                     <button @click="llamar_al_rastreo" class="btn btn-primary px-3" >Rastrea tu Paquete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Header Start -->
+  <div class="jumbotron2 jumbotron-fluid mb-5">
+    <div class="container text-center py-5">
+      <h1 class="text-primary mb-4">Puerta a puerta</h1>
+      <h1 class="text-white display-3 mb-5">Paquetería México y Centroamérica</h1>
+      <button 
+        @click="openTrackingModal"
+        class="tracking-button"
+      >
+        <i class="fas fa-search-location me-2"></i> Rastrea tu Paquete
+      </button>
     </div>
+  </div>
+  <!-- Header End -->
+
+  <TrackingModal ref="trackingModalRef" />
     <!-- Header End -->
   <!-- Sección de Servicios Renovada -->
   <section class="services-section section-padding bg-light-alt">
@@ -122,6 +122,29 @@
 </template>
 
 <style setup>
+.tracking-button {
+  background: linear-gradient(135deg, #ff8a00, #e52e71);
+  color: white;
+  border: none;
+  padding: 18px 36px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(229, 46, 113, 0.3);
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(229, 46, 113, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
 /* --- Variables (Asegúrate que coincidan o define localmente) --- */
 :root {
   --primary-color: #e74c3c;
@@ -499,5 +522,17 @@
 }
 </style>
 <script setup>
+import { ref } from 'vue'; // Asegúrate de importar ref
+import TrackingModal from '@/components/TrackingModal.vue';
 import MapaInteractivo from '@/components/MapaInteractivo.vue';
+
+const trackingModalRef = ref(null); // Inicializa correctamente la referencia
+
+const openTrackingModal = () => {
+  if (trackingModalRef.value) {
+    trackingModalRef.value.showModal();
+  } else {
+    console.error('El componente modal no está disponible');
+  }
+};
 </script>

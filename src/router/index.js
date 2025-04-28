@@ -14,6 +14,14 @@ const routes = [
   { path: '/contactanos', name: 'Contactanos', component: Contactanos },
   { path: '/conocenos', name: 'Conocenos', component: Conocenos },
   { path: '/puerta-puerta', name: 'Puerta a Puerta', component: Puerta },
+  {
+    path: '/tracking-results',
+    name: 'tracking-results',
+    component: () => import('../views/TrackingResults.vue'),
+    props: (route) => ({
+      query: route.query
+    })
+  },
     {
     path: '/paises',
     name: 'Paises',
