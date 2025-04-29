@@ -10,14 +10,20 @@
 
     <!-- Menú deslizable -->
     <nav :class="{ 'mobile-menu': true, 'open': isMenuOpen }">
+      <div class="scroll-hint">
+  <small>Desliza para ver más</small>
+</div>
+
       <ul>
-        <li><RouterLink to="/"><span>🏠</span> Inicio</RouterLink></li>
-        <li><RouterLink to="/nosotros"><span>👤</span> Conócenos</RouterLink></li>
-        <li><RouterLink to="/puerta-puerta"><span>📦</span> Puerta a Puerta</RouterLink></li>
-        <li><RouterLink to="/nuestras-rutas"><span>🛣️</span> Rutas en EEUU</RouterLink></li>
-        <li><RouterLink to="/contacto"><span>📞</span> Contáctanos</RouterLink></li>
+        <li><RouterLink to="/" @click="closeMenu"><span>🏠</span> Inicio</RouterLink></li>
+        <li><RouterLink to="/nosotros" @click="closeMenu"><span>👤</span> Conócenos</RouterLink></li>
+        <li><RouterLink to="/puerta-puerta" @click="closeMenu"><span>📦</span> Puerta a Puerta</RouterLink></li>
+        <li><RouterLink to="/nuestras-rutas" @click="closeMenu"><span>🛣️</span> Rutas en EEUU</RouterLink></li>
+        <li><RouterLink to="/paises" @click="closeMenu"><span>🌎</span> Países</RouterLink></li>
+        <li><RouterLink to="/cotiza" @click="closeMenu"><span>💰</span> Cotiza</RouterLink></li>
+        <li><RouterLink to="/contacto" @click="closeMenu"><span>📞</span> Contáctanos</RouterLink></li>
         <li class="rastrea-btn">
-          <RouterLink to="/rastreo"><span>🚚</span> Rastrea tu paquete</RouterLink>
+          <RouterLink to="/rastreo" @click="closeMenu"><span>🚚</span> Rastrea tu paquete</RouterLink>
         </li>
       </ul>
     </nav>
@@ -34,12 +40,54 @@ export default {
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
+    },
+    closeMenu() {
+      this.isMenuOpen = false;
     }
   }
 };
 </script>
 
 <style scoped>
+.scroll-hint {
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  animation: bounce-down 1.5s infinite;
+  opacity: 0.85;
+}
+
+.arrow-down {
+  font-size: 1.2rem;
+  display: block;
+  animation: bounce-down 1.5s infinite;
+}
+
+/* Animación de rebote vertical */
+@keyframes bounce-down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Bounce animation */
+@keyframes bounce-click {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.2); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Estilo animado al hacer clic */
+.mobile-menu a:active span {
+  animation: bounce-click 0.4s ease;
+  color: #ffd700; /* Amarillo dorado temporal */
+}
+
 /* Oculta en escritorio */
 @media (min-width: 769px) {
   .menu-mobile {
@@ -88,9 +136,9 @@ export default {
   left: 0;
   width: 100%;
   height: 55%;
-  background: linear-gradient(135deg, #b3001b, #4b0000); /* degradado rojo profundo */
+  background: linear-gradient(135deg, #b3001b, #4b0000); 
   background-image: 
-    url('/images/textura-light.png'), /* una textura sutil (puedes usar tu propia imagen) */
+    url('/images/textura-light.png'), 
     linear-gradient(135deg, #b3001b, #4b0000);
   background-blend-mode: overlay;
   background-size: cover, 100% 100%;
@@ -103,7 +151,6 @@ export default {
   overflow-y: auto;
   box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.45);
 }
-
 
 .mobile-menu.open {
   bottom: 0;

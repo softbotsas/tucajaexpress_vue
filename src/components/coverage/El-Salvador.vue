@@ -68,16 +68,16 @@
         
         <div class="gallery-item">
           <div class="image-container">
-            <img src="/images/paises/elsalvador/recepcion.png" alt="Transporte aéreo a El Salvador">
+            <img src="/images/embalaje2.png" alt="Embalaje">
           </div>
-          <div class="gallery-caption">2. Transporte Aéreo</div>
+          <div class="gallery-caption">2. Embalaje y envio</div>
         </div>
         
         <div class="gallery-item">
           <div class="image-container">
-            <img src="/images/paises/elsalvador/recepcion.png" alt="Despacho aduanal en El Salvador">
+            <img src="/images/llegada.png" alt="Despacho aduanal en El Salvador">
           </div>
-          <div class="gallery-caption">3. Despacho Aduanal</div>
+          <div class="gallery-caption">3. Entrega Destino</div>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
             </div>
             
             <div class="coverage-map">
-              <div class="image-placeholder" style="background-color: #F39C12; height: 300px;"></div>
+              <img src="/images/106.jpg" alt="Mapa de cobertura en Guatemala" class="map-image">
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@
             <div class="slider-wrapper">
               <!-- Slide 1 -->
               <div class="slide">
-                <div class="image-placeholder" style="background-color: #E74C3C;"></div>
+                <img src="/images/1190.jpg" alt="Despacho aduanal en El Salvador">
                 <div class="slide-caption">
                   <h3>Área Metropolitana</h3>
                   <p>Entregas en todo San Salvador</p>
@@ -173,6 +173,7 @@
   </script>
   
   <style scoped>
+    .map-image { max-width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: 0 8px 25px rgba(0,0,0,0.15); background-color: #eee; }
   /* Estilos base */
   .country-content-area {
     padding-top: 80px;
