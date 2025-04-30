@@ -1,384 +1,969 @@
 <template>
-    <!-- Contenedor principal para el contenido específico de Guatemala -->
-    <div class="guatemala-component country-content-area animate__animated animate__fadeIn">
-  
-      <!-- ==================================================== -->
-      <!-- ==    1. Banner Introductorio (Guatemala)         == -->
-      <!-- ==================================================== -->
-      <section class="guatemala-intro-banner">
-        <div class="intro-banner-background">
-          <!-- ***** IMAGEN PLACEHOLDER (Banner Intro Guatemala) ***** -->
-          <!-- Reemplaza con imagen de Guatemala (Tikal, Antigua, Lago Atitlán) -->
-          <!-- Ejemplo: /images/backgrounds/guatemala-intro.jpg -->
-          <img src="/images/paises/guatemala/banner.jpeg" alt="Imagen introductoria de envíos a Guatemala" class="intro-banner-img">
-          <div class="intro-banner-overlay"></div>
+  <!-- Contenedor principal para Guatemala -->
+  <div class="guatemala-component country-content-area">
+    
+    <!-- Hero Banner con efecto parallax -->
+    <section class="hero-banner">
+      <div class="parallax-bg">
+        <img src="/images/paises/guatemala/banner.jpeg" alt="Paisaje de Guatemala" class="banner-img">
+      </div>
+      <div class="hero-content">
+        <div class="flag-colors">
+          <div class="color blue"></div>
+          <div class="color white"></div>
         </div>
-        <div class="container intro-banner-content">
-          <h1 class="intro-banner-title">Envíos a <span class="highlight-guatemala">Guatemala</span>, <br>Conexión Segura y Eficiente</h1>
-          <p class="intro-banner-text">Tu puente logístico desde Estados Unidos al corazón del mundo Maya.</p>
+        <h1 class="hero-title">
+          <span class="gradient-text">Envíos a Guatemala</span><br>
+          Seguros y Confiables
+        </h1>
+        <p class="hero-subtitle">Tu conexión logística entre Estados Unidos y la tierra de la eterna primavera</p>
+        <div class="cta-buttons">
+          <router-link to="/cotizar?destino=guatemala" class="btn-primary">
+            <i class="fas fa-paper-plane"></i> Cotizar Envío
+          </router-link>
+          <router-link to="/contacto?asunto=EnvioGuatemala" class="btn-outline">
+            <i class="fas fa-headset"></i> Contactar Asesor
+          </router-link>
         </div>
-      </section>
-  
-      <!-- ==================================================== -->
-      <!-- ==    2. Por Qué Elegirnos (Beneficios Guatemala) == -->
-      <!-- ==================================================== -->
-      <section class="guatemala-benefits section-padding">
-        <div class="container">
-          <h2 class="section-title text-center">Ventajas Exclusivas para <span class="highlight">Guatemala</span></h2>
-          <p class="section-subtitle text-center">Descubre cómo optimizamos tus envíos al territorio guatemalteco.</p>
-          <div class="benefits-grid">
-            <!-- Beneficio 1 -->
-            <div class="benefit-card animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-              <div class="benefit-icon" style="background-color: #000b74;">
-                 <i class="fas fa-map-signs"></i> <!-- Icono sugerido: Señales de mapa -->
-              </div>
-              <h3>Cobertura Estratégica</h3>
-              <p>Llegamos a Ciudad de Guatemala, Quetzaltenango, Antigua y más.</p>
-            </div>
-            <!-- Beneficio 3 -->
-            <div class="benefit-card animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-               <div class="benefit-icon" style="background-color: #F39C12;"> <!-- Naranja/Dorado -->
-                 <i class="fas fa-route"></i> <!-- Icono sugerido: Ruta -->
-               </div>
-               <h3>Rutas Optimizadas</h3>
-               <p>Tiempos de entrega confiables ajustados a las rutas locales.</p>
-            </div>
-             <!-- Beneficio 4 -->
-            <div class="benefit-card animate__animated animate__fadeInUp" data-wow-delay="0.4s">
-              <div class="benefit-icon" style="background-color: var(--secondary-color);"> <!-- Azul secundario -->
-                <i class="fas fa-users"></i> <!-- Icono sugerido: Grupo de personas -->
-              </div>
-              <h3>Equipo Local</h3>
-              <p>Personal familiarizado con la logística y cultura guatemalteca.</p>
-            </div>
+      </div>
+    </section>
+
+    <!-- Tarjetas de beneficios -->
+    <section class="floating-benefits">
+      <div class="benefit-card">
+        <div class="card-icon" style="background: linear-gradient(135deg, #4997D0, #7AB5E5);">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Protección Total</h3>
+        <p>Seguro incluido en todos tus envíos</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon" style="background: linear-gradient(135deg, #8B4513, #CD853F);">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3>Tiempos Garantizados</h3>
+        <p>Entregas puntuales a todo el país</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon" style="background: linear-gradient(135deg, #2E8B57, #5FBD97);">
+          <i class="fas fa-tag"></i>
+        </div>
+        <h3>Precios Especiales</h3>
+        <p>Tarifas preferenciales para Guatemala</p>
+      </div>
+    </section>
+
+    <!-- Mapa de cobertura -->
+    <section class="coverage-section">
+      <div class="section-header">
+        <h2 class="section-title">Cobertura en <span>Guatemala</span></h2>
+        <p class="section-description">Llegamos a las principales ciudades y departamentos</p>
+      </div>
+      
+      <div class="coverage-container">
+        <div class="map-container">
+          <img src="/images/mapa-guate.jpg" alt="Mapa de Guatemala" class="guatemala-map">
+          <div class="city-marker" style="top: 50%; left: 40%;" data-city="Ciudad de Guatemala"></div>
+          <div class="city-marker" style="top: 45%; left: 25%;" data-city="Quetzaltenango"></div>
+          <div class="city-marker" style="top: 60%; left: 55%;" data-city="Antigua"></div>
+        </div>
+        
+        <div class="city-list">
+          <h3>Principales destinos:</h3>
+          <ul>
+            <li><i class="fas fa-map-marker-alt" style="color: #4997D0;"></i> Ciudad de Guatemala</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #8B4513;"></i> Quetzaltenango</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #2E8B57;"></i> Antigua</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #7AB5E5;"></i> Escuintla</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #CD853F;"></i> Huehuetenango</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #5FBD97;"></i> Petén</li>
+          </ul>
+          <button class="btn-text" @click="showFullCoverage">
+            Ver cobertura completa <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proceso de envío -->
+    <section class="process-section">
+      <div class="section-header">
+        <h2 class="section-title">Nuestro <span>proceso</span> para Guatemala</h2>
+        <p class="section-description">Cómo trabajamos para garantizar tu envío</p>
+      </div>
+      
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Recolección en USA</h3>
+            <p>Recogemos tus paquetes en nuestros centros</p>
           </div>
         </div>
-      </section>
-  
-      <!-- ==================================================== -->
-      <!-- ==      3. Galería Visual (Envíos a GT)           == -->
-      <!-- ==================================================== -->
-      <section class="guatemala-visual-gallery section-padding bg-light">
-          <div class="container">
-              <h2 class="section-title text-center">Nuestra Logística hacia <span class="highlight">Guatemala</span></h2>
-              <p class="section-subtitle text-center">Así aseguramos que tus paquetes lleguen seguros.</p>
-              <div class="gallery-grid">
-                  <!-- ***** IMAGEN PLACEHOLDER (Galería GT 1) ***** -->
-                  <div class="gallery-item animate__animated animate__zoomIn">
-                      <img src="/images/recepcion.png" alt="Recepción de paquetes en USA para Guatemala">
-                      <div class="gallery-caption">Recepción en USA</div>
-                  </div>
-                   <!-- ***** IMAGEN PLACEHOLDER (Galería GT 2) ***** -->
-                  <div class="gallery-item animate__animated animate__zoomIn" data-wow-delay="0.1s">
-                      <img src="/images/embalaje.png" alt="Embalaje y envío">
-                       <div class="gallery-caption">Transporte Eficiente</div>
-                  </div>
-                   <!-- ***** IMAGEN PLACEHOLDER (Galería GT 4) ***** -->
-                   <div class="gallery-item animate__animated animate__zoomIn" data-wow-delay="0.3s">
-                      <img src="/images/entrega.png" alt="Entrega final de paquete en Guatemala">
-                       <div class="gallery-caption">Entrega Puerta a Puerta</div>
-                  </div>
-              </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Clasificación y Protección</h3>
+            <p>Preparamos cada envío con máximo cuidado</p>
           </div>
-      </section>
-  
-      <!-- ==================================================== -->
-      <!-- ==    4. Cobertura Detallada (Mapa Guatemala)     == -->
-      <!-- ==================================================== -->
-      <section class="guatemala-coverage section-padding">
-        <div class="container">
-           <h2 class="section-title text-center">Cobertura en <span class="highlight">Guatemala</span></h2>
-           <div class="coverage-content">
-             <div class="coverage-text animate__animated animate__fadeInLeft">
-               <p>Nuestra red cubre los principales departamentos y ciudades, incluyendo:</p>
-               <ul>
-                 <li><i class="fas fa-city"></i> Ciudad de Guatemala</li>
-                 <li><i class="fas fa-city"></i> Mixco</li>
-                 <li><i class="fas fa-city"></i> Villa Nueva</li>
-                 <li><i class="fas fa-city"></i> Quetzaltenango (Xela)</li>
-                 <li><i class="fas fa-city"></i> Escuintla</li>
-                 <li><i class="fas fa-map-marker-alt"></i> ¡Y muchas otras cabeceras y municipios!</li>
-               </ul>
-               <p><strong>Consulta por tarifas y cobertura exacta</strong> para tu destino específico en Guatemala.</p>
-             </div>
-             <div class="coverage-map animate__animated animate__fadeInRight">
-               <!-- ***** IMAGEN PLACEHOLDER (Mapa Cobertura GT) ***** -->
-               <img src="/images/mapa-guate.jpg" alt="Mapa de cobertura en Guatemala" class="map-image">
-             </div>
-           </div>
         </div>
-      </section>
-  
-      <!-- ==================================================== -->
-      <!-- ==      5. Deslizador de Imágenes (Guatemala)     == -->
-      <!-- ==================================================== -->
-      <section class="guatemala-slider section-padding bg-light">
-          <div class="container">
-              <h2 class="section-title text-center">Imágenes de <span class="highlight">Guatemala</span></h2>
-              <p class="section-subtitle text-center">Paisajes y cultura del destino de tus envíos.</p>
-              <div class="slider-container">
-                  <div class="slider-wrapper" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-                      <!-- Slide 1 -->
-                      <div class="slide">
-                           <!-- ***** IMAGEN PLACEHOLDER (Slider GT 1) ***** -->
-                          <img src="/images/paises/guatemala/antigua-gu.jpeg" alt="Antigua Guatemala">
-                          <div class="slide-caption"><h3>Antigua Guatemala</h3><p>Ciudad colonial, destino frecuente.</p></div>
-                      </div>
-                      <!-- Slide 2 -->
-                      <div class="slide">
-                           <!-- ***** IMAGEN PLACEHOLDER (Slider GT 2) ***** -->
-                          <img src="/images/paises/guatemala/lago-atitlan.jpeg" alt="Lago Atitlán">
-                           <div class="slide-caption"><h3>Lago Atitlán</h3><p>Belleza natural incomparable.</p></div>
-                      </div>
-                      <!-- Slide 3 -->
-                      <div class="slide">
-                          <!-- ***** IMAGEN PLACEHOLDER (Slider GT 3) ***** -->
-                          <img src="/images/paises/guatemala/textiles.jpeg" alt="Textiles guatemaltecos">
-                           <div class="slide-caption"><h3>Artesanías y Textiles</h3><p>Enviando cultura y tradición.</p></div>
-                      </div>
-                       <!-- Slide 4 -->
-                      <div class="slide">
-                          <!-- ***** IMAGEN PLACEHOLDER (Slider GT 4) ***** -->
-                          <img src="/images/paises/guatemala/tikal.jpeg" alt="Ruinas de Tikal">
-                          <div class="slide-caption"><h3>Tikal</h3><p>Corazón del mundo Maya.</p></div>
-                      </div>
-                  </div>
-                  <button @click="prevSlide" class="slider-nav prev" aria-label="Anterior">❮</button>
-                  <button @click="nextSlide" class="slider-nav next" aria-label="Siguiente">❯</button>
-                  <div class="slider-dots">
-                      <span v-for="(slide, index) in slides" :key="index"
-                            :class="{ active: index === currentSlide }"
-                            @click="goToSlide(index)"></span>
-                  </div>
-              </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Transporte Aéreo</h3>
+            <p>Envío rápido vía aérea a Guatemala</p>
           </div>
-      </section>
-  
-  
-      <!-- ==================================================== -->
-      <!-- ==      6. Sección de Servicios (Guatemala)       == -->
-      <!-- ==================================================== -->
-       <section class="guatemala-services section-padding">
-         <div class="container">
-           <h2 class="section-title text-center">Opciones de Envío a <span class="highlight">Guatemala</span></h2>
-            <p class="section-subtitle text-center">Servicios diseñados para tus necesidades específicas hacia Guatemala.</p>
-           <div class="services-container">
-             <!-- Servicio 1 -->
-             <div class="service-item animate__animated animate__zoomIn" data-wow-delay="0.1s">
-               <i class="fas fa-box service-icon"></i> <!-- Icono sugerido: Caja -->
-               <h4>Paquetería Consolidada</h4>
-               <p>La opción más económica para envíos no urgentes a Guatemala.</p>
-             </div>
-             <!-- Servicio 2 -->
-             <div class="service-item animate__animated animate__zoomIn" data-wow-delay="0.2s">
-               <i class="fas fa-plane-departure service-icon"></i> <!-- Icono sugerido: Avión despegando -->
-               <h4>Envío Aéreo Prioritario</h4>
-               <p>Rapidez y eficiencia para tus paquetes urgentes a Guatemala.</p>
-             </div>
-             <!-- Servicio 3 -->
-             <div class="service-item animate__animated animate__zoomIn" data-wow-delay="0.3s">
-                <i class="fas fa-boxes service-icon"></i> <!-- Icono sugerido: Cajas apiladas -->
-                <h4>Soluciones Comerciales</h4>
-                <p>Logística para importaciones y envíos de negocio a negocio.</p>
-             </div>
-           </div>
-         </div>
-       </section>
-  
-      <!-- ==================================================== -->
-      <!-- ==      7. Llamada a la Acción (CTA Guatemala)    == -->
-      <!-- ==================================================== -->
-      <section id="guatemala-cta" class="guatemala-cta section-padding">
-        <div class="container text-center">
-          <h2 class="cta-title animate__animated animate__fadeInUp">¿Enviar a <span class="highlight-guatemala">Guatemala</span>? ¡Fácil!</h2>
-          <p class="cta-text animate__animated animate__fadeInUp animate__delay-0.5s">
-            Cotiza ahora tu envío o contacta a nuestro equipo especializado en Guatemala.
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Entrega Final</h3>
+            <p>Distribución puerta a puerta</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería -->
+    <section class="gallery-section">
+      <div class="section-header">
+        <h2 class="section-title">Envíos a <span>Guatemala</span></h2>
+        <p class="section-description">Así garantizamos la seguridad de tus paquetes</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" @click="openLightbox('/images/recepcion.png')">
+          <img src="/images/recepcion.png" alt="Recepción de paquetes">
+          <div class="item-overlay">
+            <h3>Recepción Segura</h3>
+          </div>
+        </div>
+        <div class="gallery-item" @click="openLightbox('/images/embalaje.png')">
+          <img src="/images/embalaje.png" alt="Embalaje profesional">
+          <div class="item-overlay">
+            <h3>Embalaje Especializado</h3>
+          </div>
+        </div>
+        <div class="gallery-item" @click="openLightbox('/images/entrega.png')">
+          <img src="/images/entrega.png" alt="Entrega en Guatemala">
+          <div class="item-overlay">
+            <h3>Entrega en Destino</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destinos -->
+    <section class="destinations-section">
+      <div class="section-header">
+        <h2 class="section-title">Destinos <span>populares</span></h2>
+        <p class="section-description">Ciudades a las que enviamos frecuentemente</p>
+      </div>
+      
+      <div class="destinations-grid">
+        <div class="destination-card">
+          <img src="/images/paises/guatemala/antigua-gu.jpeg" alt="Antigua Guatemala">
+          <div class="destination-info">
+            <h3>Antigua Guatemala</h3>
+            <p>Ciudad colonial patrimonio mundial</p>
+          </div>
+        </div>
+        <div class="destination-card">
+          <img src="/images/paises/guatemala/lago-atitlan.jpeg" alt="Lago Atitlán">
+          <div class="destination-info">
+            <h3>Lago Atitlán</h3>
+            <p>Uno de los lagos más bellos del mundo</p>
+          </div>
+        </div>
+        <div class="destination-card">
+          <img src="/images/paises/guatemala/tikal.jpeg" alt="Tikal">
+          <div class="destination-info">
+            <h3>Tikal</h3>
+            <p>Majestuosas ruinas mayas</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="testimonials-section">
+      <div class="section-header">
+        <h2 class="section-title">Clientes <span>satisfechos</span></h2>
+        <p class="section-description">Experiencias reales con nuestros envíos</p>
+      </div>
+      
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="client-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "Envío regularmente a mi familia en Quetzaltenango y siempre llega todo perfectamente. ¡Excelente servicio!"
           </p>
-          <div class="cta-buttons animate__animated animate__fadeInUp animate__delay-1s">
-             <!-- Actualiza los parámetros query -->
-             <router-link to="/cotizar?destino=guatemala" class="cta-button primary">
-              <i class="fas fa-calculator"></i> Cotizar Ahora
-            </router-link>
-            <router-link to="/contacto?asunto=EnvioGuatemala" class="cta-button secondary">
-              <i class="fas fa-user-tie"></i> Contactar Asesor
-            </router-link>
+          <div class="client-info">
+            <div class="client-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="client-details">
+              <h4>María González</h4>
+              <p>California, USA</p>
+            </div>
           </div>
         </div>
-      </section>
-  
-    </div> <!-- Fin Guatemala Component -->
-  </template>
-  
-  <script setup>
-  import { ref, onMounted, computed } from 'vue';
-  import 'animate.css';
-  
-  // --- Lógica del Slider (igual que en México) ---
-  const slides = ref([ { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 } ]);
-  const currentSlide = ref(0);
-  const totalSlides = computed(() => slides.value.length);
-  const nextSlide = () => { currentSlide.value = (currentSlide.value + 1) % totalSlides.value; };
-  const prevSlide = () => { currentSlide.value = (currentSlide.value - 1 + totalSlides.value) % totalSlides.value; };
-  const goToSlide = (index) => { currentSlide.value = index; };
-  
-  // --- Ciclo de vida ---
-  onMounted(() => {
-    // Inicializaciones específicas de Guatemala si son necesarias
-  });
-  </script>
-  
-  <style scoped>
-  /* --- Variables (Asegúrate que --header-height-shrunk coincida) --- */
-  :root {
-    /* ... (variables primario, secundario, dark, light, etc. como antes) ... */
-    --primary-color: #e74c3c;
-    --secondary-color: #3498db;
-    --dark-color: #2c3e50;
-    --light-color: #f8f9fa;
-    --text-color: #333;
-    --text-muted: #6c757d;
-    --font-family: 'Poppins', sans-serif;
-    --border-radius: 8px;
-    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    --header-height-shrunk: 75px; /* ¡Ajusta si es diferente! */
-    /* Colores específicos Guatemala */
-    --guatemala-blue: #4997D0; /* Azul de la bandera */
-    --guatemala-white: #ffffff;
+        
+        <div class="testimonial-card">
+          <div class="client-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="testimonial-text">
+            "Mi negocio de artesanías depende de estos envíos a Antigua. Son puntuales y confiables."
+          </p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="client-details">
+              <h4>Carlos Méndez</h4>
+              <p>Antigua, Guatemala</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="final-cta" style="background: linear-gradient(135deg, #4997D0, #7AB5E5);">
+      <div class="cta-container">
+        <h2>¿Envíos a Guatemala?</h2>
+        <p>Comienza hoy con nuestro servicio confiable</p>
+        <button class="btn-primary btn-large" @click="scrollToQuote">
+          <i class="fas fa-paper-plane"></i> Iniciar Envío
+        </button>
+      </div>
+    </section>
+
+    <!-- Lightbox para galería -->
+    <div class="lightbox" v-if="lightboxVisible" @click="closeLightbox">
+      <div class="lightbox-content">
+        <img :src="currentImage" alt="Imagen ampliada">
+        <button class="lightbox-close" @click.stop="closeLightbox">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const lightboxVisible = ref(false);
+const currentImage = ref('');
+
+const showFullCoverage = () => {
+  alert('Mostrar modal con cobertura completa para Guatemala');
+};
+
+const openLightbox = (image) => {
+  currentImage.value = image;
+  lightboxVisible.value = true;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeLightbox = () => {
+  lightboxVisible.value = false;
+  document.body.style.overflow = '';
+};
+
+const scrollToQuote = () => {
+  const quoteSection = document.querySelector('#quote-section');
+  if (quoteSection) {
+    quoteSection.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    router.push('/cotizar?destino=guatemala');
+  }
+};
+</script>
+<style scoped>
+/* Estilos base */
+.country-content-area {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Hero Banner */
+.hero-banner {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.flag-colors {
+  display: flex;
+  width: 150px;
+  height: 8px;
+  margin: 0 auto 20px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.flag-colors .color {
+  flex: 1;
+}
+
+.flag-colors .blue { background-color: #4997D0; }
+.flag-colors .white { background-color: white; }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #4997D0, #7AB5E5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  margin-bottom: 40px;
+  opacity: 0.9;
+  font-weight: 300;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-outline {
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #4997D0;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3a7db1;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-outline:hover {
+  background-color: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+}
+
+/* Floating Benefits */
+.floating-benefits {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: -50px auto 0;
+  position: relative;
+  z-index: 3;
+  padding: 0 20px;
+  max-width: 1200px;
+}
+
+.benefit-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.card-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.benefit-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #2d3748;
+}
+
+.benefit-card p {
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+/* Section Styles */
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #2d3748;
+}
+
+.section-title span {
+  color: #4997D0;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  color: #718096;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Coverage Section */
+.coverage-section {
+  padding: 100px 0;
+  background-color: #f8fafc;
+}
+
+.coverage-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 50px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.map-container {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+}
+
+.guatemala-map {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.city-marker {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #4997D0;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px rgba(73, 151, 208, 0.5);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.city-marker:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.city-list {
+  flex: 1;
+  min-width: 300px;
+}
+
+.city-list h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+.city-list ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.city-list li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4a5568;
+}
+
+.city-list i {
+  font-size: 1.1rem;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #4997D0;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+  font-size: 1rem;
+}
+
+.btn-text:hover {
+  text-decoration: underline;
+}
+
+/* Process Section */
+.process-section {
+  padding: 100px 0;
+  background-color: white;
+}
+
+.process-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.step {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 35px;
+  top: 60px;
+  bottom: -40px;
+  width: 2px;
+  background-color: #e2e8f0;
+}
+
+.step-number {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #4997D0, #7AB5E5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.step-content {
+  padding-top: 10px;
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #2d3748;
+}
+
+.step-content p {
+  color: #718096;
+}
+
+/* Gallery Section */
+.gallery-section {
+  padding: 100px 0;
+  background-color: #f8fafc;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: white;
+}
+
+.item-overlay h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover .item-overlay h3 {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Destinations Section */
+.destinations-section {
+  padding: 100px 0;
+  background-color: white;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.destination-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.destination-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.destination-card:hover img {
+  transform: scale(1.05);
+}
+
+.destination-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+}
+
+.destination-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
+}
+
+.destination-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 100px 0;
+  background-color: #f8fafc;
+}
+
+.testimonials-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.testimonial-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #edf2f7;
+}
+
+.client-rating {
+  color: #f6c342;
+  margin-bottom: 20px;
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: #4a5568;
+  margin-bottom: 25px;
+  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.testimonial-text::before {
+  content: '"';
+  font-size: 3rem;
+  color: #e2e8f0;
+  position: absolute;
+  top: -20px;
+  left: -15px;
+  font-family: serif;
+  line-height: 1;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.client-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #edf2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4997D0;
+  font-size: 1.5rem;
+}
+
+.client-details h4 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.client-details p {
+  margin: 5px 0 0;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+/* Final CTA */
+.final-cta {
+  padding: 100px 20px;
+  color: white;
+  text-align: center;
+}
+
+.cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.final-cta h2 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 15px;
+}
+
+.final-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.btn-large {
+  padding: 16px 40px;
+  font-size: 1.1rem;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-banner {
+    height: auto;
+    padding: 120px 0;
   }
   
-  /* --- Estilo Base y Padding Superior --- */
-  .country-content-area {
-    padding-top: var(--header-height-shrunk);
-    background-color: #fff;
+  .floating-benefits {
+    margin-top: 0;
+    padding: 0 20px 40px;
   }
   
-  /* --- Estilos Generales de Sección (pueden ser los mismos que México) --- */
-  .section-padding { padding: 80px 0; }
-  .text-center { text-align: center; }
-  .bg-light { background-color: var(--light-color); }
-  .highlight { color: var(--primary-color); font-weight: 600; }
-  .highlight-guatemala { color: var(--guatemala-blue); font-weight: 700; }
-  
-  .section-title { /* ... (mismos estilos que en México) ... */
-    font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 20px; position: relative; padding-bottom: 15px; font-weight: 700; color: var(--dark-color); line-height: 1.3;
-  }
-  .section-title.text-center::after { /* ... (mismos estilos que en México) ... */
-    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--guatemala-blue); border-radius: 2px; /* Usar color de Guatemala */
-  }
-  .section-subtitle { /* ... (mismos estilos que en México) ... */
-    font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 50px auto; font-weight: 300;
+  .benefit-card {
+    width: 100%;
+    max-width: 400px;
   }
   
-  
-  /* --- Banner Introductorio Guatemala --- */
-  /* (Usa los mismos estilos que .mexico-intro-banner, solo cambia el nombre de clase si quieres) */
-  .guatemala-intro-banner { position: relative; min-height: 55vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; overflow: hidden; }
-  .intro-banner-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-color: var(--dark-color); }
-  .intro-banner-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6) contrast(1.1); }
-  .intro-banner-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)); z-index: 2; }
-  .intro-banner-content { position: relative; z-index: 3; max-width: 800px; }
-  .intro-banner-title { font-size: clamp(2.5rem, 6vw, 3.8rem); /* Ajusta si es necesario */ font-weight: 700; margin-bottom: 15px; color: #fff; text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.7); }
-  .intro-banner-text { font-size: clamp(1.1rem, 3vw, 1.4rem); opacity: 0.9; font-weight: 300; }
-  
-  
-  /* --- Beneficios Guatemala --- */
-  /* (Mismos estilos que .mexico-benefits, .benefits-grid, etc.) */
-  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-  .benefit-card { background: white; border-radius: var(--border-radius); padding: 35px 25px; text-align: center; box-shadow: var(--box-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; border-bottom: 4px solid; }
-  /* Ajusta los colores del borde si quieres */
-  .benefit-card:nth-child(1) { border-color: var(--guatemala-blue); }
-  .benefit-card:nth-child(2) { border-color: var(--primary-color); }
-  .benefit-card:nth-child(3) { border-color: #F39C12; }
-  .benefit-card:nth-child(4) { border-color: var(--secondary-color); }
-  .benefit-card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12); }
-  .benefit-icon { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 1.8rem; /* Tamaño base del icono */ box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-  .benefit-icon i, .benefit-icon svg { font-size: inherit; /* Hereda el tamaño del contenedor */ }
-  .benefit-card h3 { margin-bottom: 10px; font-size: 1.25rem; color: var(--dark-color); font-weight: 600; }
-  .benefit-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
-  
-  
-  /* --- Galería Visual Guatemala --- */
-  /* (Mismos estilos que .mexico-visual-gallery, .gallery-grid, etc.) */
-  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-  .gallery-item { position: relative; overflow: hidden; border-radius: var(--border-radius); box-shadow: var(--box-shadow); transition: transform 0.3s ease; }
-  .gallery-item:hover { transform: scale(1.03); }
-  .gallery-item img { display: block; width: 100%; height: 250px; object-fit: cover; }
-  .gallery-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; padding: 20px 15px 10px; font-size: 0.95rem; font-weight: 500; text-align: center; opacity: 0; transition: opacity 0.3s ease; }
-  .gallery-item:hover .gallery-caption { opacity: 1; }
-  
-  
-  /* --- Cobertura Guatemala --- */
-  /* (Mismos estilos que .mexico-coverage, .coverage-content, etc.) */
-  .coverage-content { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; }
-  .coverage-text { flex: 1; min-width: 300px; }
-  .coverage-text p { color: var(--text-muted); margin-bottom: 15px; font-size: 1.05rem; }
-  .coverage-text ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
-  .coverage-text li { margin-bottom: 12px; color: var(--text-color); font-size: 1rem; display: flex; align-items: center; }
-  .coverage-text li i { color: var(--guatemala-blue); /* Usar color de Guatemala */ margin-right: 12px; width: 20px; text-align: center; flex-shrink: 0; }
-  .coverage-text strong { color: var(--primary-color); }
-  .coverage-map { flex: 1; min-width: 300px; text-align: center; }
-  .map-image { max-width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: 0 8px 25px rgba(0,0,0,0.15); background-color: #eee; }
-  
-  
-  /* --- Slider Guatemala --- */
-  /* (Mismos estilos que .mexico-slider, .slider-container, etc.) */
-  .slider-container { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
-  .slider-wrapper { display: flex; transition: transform 0.5s ease-in-out; }
-  .slide { min-width: 100%; position: relative; box-sizing: border-box; }
-  .slide img { display: block; width: 100%; height: auto; max-height: 500px; object-fit: cover; }
-  .slide-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.7) 80%); color: white; padding: 30px 20px 20px; text-align: left; }
-  .slide-caption h3 { margin: 0 0 5px 0; font-size: 1.4rem; font-weight: 600; }
-  .slide-caption p { margin: 0; font-size: 1rem; opacity: 0.9; }
-  .slider-nav { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 15px; font-size: 1.5rem; cursor: pointer; border-radius: 50%; z-index: 10; transition: background-color 0.2s ease; }
-  .slider-nav:hover { background-color: rgba(0, 0, 0, 0.8); }
-  .slider-nav.prev { left: 15px; }
-  .slider-nav.next { right: 15px; }
-  .slider-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
-  .slider-dots span { width: 10px; height: 10px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.5); cursor: pointer; transition: background-color 0.2s ease; }
-  .slider-dots span.active { background-color: white; }
-  
-  
-  /* --- Servicios Guatemala --- */
-  /* (Mismos estilos que .mexico-services, .services-container, etc.) */
-  .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
-  .service-item { background-color: #fff; padding: 35px 30px; border-radius: var(--border-radius); text-align: center; box-shadow: var(--box-shadow); transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; border: 1px solid #eee; border-top: 4px solid var(--light-color); }
-  .service-item:hover { transform: translateY(-10px); background-color: var(--guatemala-blue); /* Color Guatemala en hover */ color: white; border-top-color: var(--guatemala-blue); border-color: var(--guatemala-blue); }
-  .service-icon { font-size: 3rem; margin-bottom: 20px; color: var(--guatemala-blue); /* Color Guatemala base */ transition: color 0.3s ease; }
-  .service-item:hover .service-icon { color: white; }
-  .service-item h4 { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; transition: color 0.3s ease; color: var(--dark-color); }
-  .service-item:hover h4 { color: white; }
-  .service-item p { font-size: 0.95rem; line-height: 1.6; transition: color 0.3s ease; color: var(--text-muted); }
-  .service-item:hover p { color: rgba(255, 255, 255, 0.9); }
-  
-  
-  /* --- CTA Guatemala --- */
-  /* (Mismos estilos que .mexico-cta, .cta-title, etc., quizás cambiar color primario del botón) */
-  .guatemala-cta { background: var(--light-color); border-top: 1px solid #eee; }
-  .cta-title { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: 15px; font-weight: 700; color: var(--dark-color); }
-  .cta-text { font-size: 1.2rem; margin-bottom: 35px; color: var(--text-muted); max-width: 650px; margin-left: auto; margin-right: auto; }
-  .cta-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
-  .cta-button { padding: 14px 35px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 2px solid transparent; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-  .cta-button.primary { background-color: var(--guatemala-blue); /* Botón primario con color Guatemala */ color: white; border-color: var(--guatemala-blue); }
-  .cta-button.primary:hover { background-color: #3a7db1; /* Azul más oscuro */ border-color: #3a7db1; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
-  .cta-button.secondary { background-color: var(--dark-color); color: white; border-color: var(--dark-color); }
-  .cta-button.secondary:hover { background-color: #1e2b37; border-color: #1e2b37; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
-  
-  
-  /* --- Responsive (Adaptar si es necesario) --- */
-  /* (Mantener o ajustar media queries como en México) */
-  @media (max-width: 992px) {
-      /* ... */
+  .coverage-container {
+    flex-direction: column;
   }
-  @media (max-width: 768px) {
-    .country-content-area {
-        padding-top: 65px; /* Ajustar si es necesario */
-    }
-    .section-padding { padding: 60px 0; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; }
-    /* ... */
+  
+  .step:not(:last-child)::after {
+    left: 35px;
+    top: 60px;
+    bottom: -30px;
   }
-  @media (max-width: 576px) {
-    .section-padding { padding: 50px 0; }
-    /* ... */
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2rem;
   }
-  </style>
+  
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-primary, .btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .step {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .step:not(:last-child)::after {
+    left: 35px;
+    top: 70px;
+    bottom: -30px;
+    height: 30px;
+    width: 2px;
+  }
+  
+  .testimonials-container {
+    flex-direction: column;
+  }
+}
+</style>

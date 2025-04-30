@@ -9,6 +9,8 @@ import Guatemala from '../components/coverage/Guatemala.vue'
 import Conocenos from '../views/Conocenos.vue'
 import Puerta from '../views/Puerta.vue'
 import ElSalvador from '@/components/coverage/El-Salvador.vue'
+import Honduras from '@/components/coverage/Honduras.vue'
+import Nicaragua from '@/components/coverage/Nicaragua.vue'
 
 const routes = [
   { path: '/', name: 'inicio', component: InicioView },
@@ -44,6 +46,17 @@ const routes = [
         name: 'Guatemala',
         component: Guatemala
       },
+      {
+        path: 'honduras',
+        name: 'Honduras',
+        component: Honduras
+      },
+      {
+        path: 'nicaragua',
+        name: 'Nicaragua',
+        component: Nicaragua
+      },
+      
       // Agregar más rutas para otros países
     ]
   }

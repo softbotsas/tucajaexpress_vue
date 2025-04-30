@@ -1,701 +1,968 @@
 <template>
-  <div class="mexico-component country-content-area animate__animated animate__fadeIn">
-
-    <!-- ============================================= -->
-    <!-- ==    1. HERO INMERSIVO - BIENVENIDA       == -->
-    <!-- ============================================= -->
-    <section class="mexico-hero-local">
-      <div class="hero-background">
-        <!-- ***** IMAGEN PLACEHOLDER (Hero México - Principal) ***** -->
-        <!-- Reemplaza con una imagen ESPECTACULAR y de alta calidad de México -->
-        <!-- (Ej: Zócalo CDMX al atardecer, Chichén Itzá, paisaje de agave) -->
-        <!-- Ruta ejemplo: /images/backgrounds/mexico-hero-main.jpg -->
-        <img src="/images/backgrounds/mexico-intro.jpeg" alt="Bienvenida a envíos a México" class="hero-bg-img">
-        <div class="hero-overlay-pattern"></div> <!-- Overlay con patrón sutil -->
+  <div class="mexico-component country-content-area">
+    
+    <!-- Hero Banner con efecto parallax -->
+    <section class="hero-banner">
+      <div class="parallax-bg">
+        <img src="/images/backgrounds/mexico-intro.jpeg" alt="Paisaje de México" class="banner-img">
       </div>
-      <div class="container hero-content">
-        <div class="flag-colors-bar">
-          <div class="color-stripe green"></div>
-          <div class="color-stripe white"></div>
-          <div class="color-stripe red"></div>
+      <div class="hero-content">
+        <div class="flag-colors">
+          <div class="color green"></div>
+          <div class="color white"></div>
+          <div class="color red"></div>
         </div>
-        <h1 class="hero-title-local">
-          <span class="line1">Tu Conexión Directa</span><br>
-          <span class="line2">con el Corazón de <span class="highlight-mexico-red">México</span></span>
+        <h1 class="hero-title">
+          <span class="gradient-text">Envíos a México</span><br>
+          Rápidos y Seguros
         </h1>
-        <p class="hero-subtitle-local">Envíos desde USA con la eficiencia y calidez que nos caracteriza.</p>
-        <router-link to="/cotizar?destino=mexico" class="cta-button hero-cta">
-          ¡Cotiza tu Envío Ahora!
-        </router-link>
-      </div>
-    </section>
-
-    <!-- ============================================= -->
-    <!-- ==    2. VENTAJAS CON SABOR LOCAL         == -->
-    <!-- ============================================= -->
-    <section class="mexico-advantages section-padding">
-      <div class="container">
-        <h2 class="section-title text-center">¿Por Qué Confiar en Nosotros para <span class="highlight-mexico-green">México</span>?</h2>
-        <p class="section-subtitle text-center">Más que envíos, creamos puentes. Descubre nuestras ventajas únicas.</p>
-        <div class="advantages-grid">
-          <!-- Ventaja 1: Cobertura -->
-          <div class="advantage-card animate__animated animate__fadeInUp">
-            <div class="advantage-icon-wrapper icon-green">
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <h3>Cobertura Extensa</h3>
-            <p>Desde Tijuana hasta Cancún, cubrimos las rutas clave y destinos remotos.</p>
-            <!-- Miniatura Opcional -->
-          </div>
-          <!-- Ventaja 2: Aduanas -->
-          <div class="advantage-card animate__animated animate__fadeInUp" data-wow-delay="0.1s">
-            <div class="advantage-icon-wrapper icon-red">
-              <i class="fas fa-file-signature"></i>
-            </div>
-            <h3>Aduana sin Estrés</h3>
-            <p>Expertos en trámites aduanales mexicanos para una importación fluida.</p>
-          </div>
-          <!-- Ventaja 3: Rapidez -->
-          <div class="advantage-card animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-            <div class="advantage-icon-wrapper icon-gold">
-              <i class="fas fa-tachometer-alt"></i>
-            </div>
-            <h3>Rapidez y Eficiencia</h3>
-            <p>Opciones de envío adaptadas a tu tiempo y presupuesto.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================= -->
-    <!-- ==    3. EL VIAJE DE TU PAQUETE (Visual)   == -->
-    <!-- ============================================= -->
-    <section class="mexico-journey section-padding bg-light">
-      <div class="container">
-        <h2 class="section-title text-center">El Viaje de tu Envío a <span class="highlight-mexico-red">México</span></h2>
-        <p class="section-subtitle text-center">Seguimos cada paso para garantizar la entrega segura.</p>
-        <!-- Paso 1: Recepción USA -->
-        <div class="journey-step animate__animated animate__fadeInLeft">
-          <div class="journey-image">
-            <!-- ***** IMAGEN PLACEHOLDER (Viaje - Recepción USA) ***** -->
-            <img src="/images/imagen1.jpg" alt="Recepción de paquete en USA">
-          </div>
-          <div class="journey-text">
-            <span class="step-number">01</span>
-            <h3>Recepción y Consolidación</h3>
-            <p>Recibimos o recogemos tu paquete en nuestras bodegas de USA, lo revisamos y preparamos para el viaje internacional.</p>
-          </div>
-        </div>
-        <!-- Paso 2: Transporte -->
-        <div class="journey-step reverse animate__animated animate__fadeInRight">
-          <div class="journey-image">
-            <!-- ***** IMAGEN PLACEHOLDER (Viaje - Transporte) ***** -->
-            <img src="/images/12.jpg" alt="Transporte terrestre o aéreo a México">
-          </div>
-          <div class="journey-text">
-             <span class="step-number">02</span>
-            <h3>Transporte Estratégico</h3>
-            <p>Seleccionamos la ruta más eficiente (terrestre o aérea) y segura para cruzar la frontera.</p>
-          </div>
-        </div>
-        <!-- Paso 3: Aduana México -->
-         <div class="journey-step animate__animated animate__fadeInLeft">
-          <div class="journey-image">
-            <!-- ***** IMAGEN PLACEHOLDER (Viaje - Aduana MX) ***** -->
-            <img src="/images/aduanamx.jpeg" alt="Proceso aduanal en México">
-          </div>
-          <div class="journey-text">
-             <span class="step-number">03</span>
-            <h3>Liberación Aduanal</h3>
-            <p>Gestionamos la documentación necesaria ante las autoridades mexicanas para una rápida liberación.</p>
-          </div>
-        </div>
-         <!-- Paso 4: Entrega Final -->
-        <div class="journey-step reverse animate__animated animate__fadeInRight">
-          <div class="journey-image">
-            <!-- ***** IMAGEN PLACEHOLDER (Viaje - Entrega MX) ***** -->
-            <img src="/images/entrega.jpeg" alt="Entrega de paquete en domicilio mexicano">
-          </div>
-          <div class="journey-text">
-            <span class="step-number">04</span>
-            <h3>Entrega en Destino</h3>
-            <p>Nuestra red local se encarga de llevar tu paquete hasta la puerta de tu destinatario en México.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================= -->
-    <!-- ==    4. GALERIA DE DESTINOS POPULARES     == -->
-    <!-- ============================================= -->
-    <section class="mexico-destinations section-padding">
-        <div class="container">
-            <h2 class="section-title text-center">Explora los Destinos que <span class="highlight-mexico-green">Conectamos</span></h2>
-            <p class="section-subtitle text-center">Algunos de los lugares fascinantes a los que llegan tus envíos.</p>
-            <div class="destinations-grid">
-                <!-- Destino 1 -->
-                <div class="destination-card animate__animated animate__zoomIn">
-                    <!-- ***** IMAGEN PLACEHOLDER (Destino 1 - CDMX) ***** -->
-                    <img src="/images/8095.jpg" alt="Ciudad de México">
-                    <div class="destination-overlay">
-                        <h3>Ciudad de México</h3>
-                        <p>El vibrante corazón del país.</p>
-                    </div>
-                </div>
-                 <!-- Destino 2 -->
-                <div class="destination-card animate__animated animate__zoomIn" data-wow-delay="0.1s">
-                    <!-- ***** IMAGEN PLACEHOLDER (Destino 2 - Cancún/Playa) ***** -->
-                    <img src="/images/6355.jpg" alt="Cancún">
-                    <div class="destination-overlay">
-                        <h3>Riviera Maya</h3>
-                        <p>Playas paradisíacas y cultura.</p>
-                    </div>
-                </div>
-                 <!-- Destino 3 -->
-                 <div class="destination-card animate__animated animate__zoomIn" data-wow-delay="0.2s">
-                    <!-- ***** IMAGEN PLACEHOLDER (Destino 3 - Guadalajara/Tequila) ***** -->
-                    <img src="/images/guadalajara.jpg" alt="Guadalajara">
-                    <div class="destination-overlay">
-                        <h3>Guadalajara</h3>
-                        <p>Tequila, mariachi y tradición.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================= -->
-    <!-- ==      6. LLAMADA A LA ACCIÓN (CTA)       == -->
-    <!-- ============================================= -->
-    <section id="mexico-cta-local" class="mexico-cta-local section-padding">
-      <div class="cta-background-pattern"></div> <!-- Patrón decorativo -->
-      <div class="container cta-content">
-        <h2 class="cta-title-local">¡Inicia tu Envío a <span class="highlight-mexico-green">México</span> Hoy!</h2>
-        <p class="cta-text-local">
-          Es fácil, rápido y seguro. Obtén tu cotización o habla con un experto ahora.
-        </p>
+        <p class="hero-subtitle">Tu conexión confiable entre Estados Unidos y México</p>
         <div class="cta-buttons">
-           <router-link to="/cotizar?destino=mexico" class="cta-button primary mexico-green-btn">
-             <i class="fas fa-calculator"></i> Calcular Envío
-           </router-link>
-           <router-link to="/contacto?asunto=EnvioMexico" class="cta-button secondary mexico-red-btn">
-             <i class="fas fa-comments"></i> Contactar Asesor
-           </router-link>
+          <router-link to="/cotizar?destino=mexico" class="btn-primary">
+            <i class="fas fa-paper-plane"></i> Cotizar Envío
+          </router-link>
+          <router-link to="/contacto?asunto=EnvioMexico" class="btn-outline">
+            <i class="fas fa-headset"></i> Contactar Asesor
+          </router-link>
         </div>
       </div>
     </section>
 
+    <!-- Tarjetas de beneficios flotantes -->
+    <section class="floating-benefits">
+      <div class="benefit-card">
+        <div class="card-icon" style="background: linear-gradient(135deg, #006847, #38b09d);">
+          <i class="fas fa-truck"></i>
+        </div>
+        <h3>Cobertura Nacional</h3>
+        <p>Llegamos a todos los estados de México</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon" style="background: linear-gradient(135deg, #CE1126, #E74C3C);">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h3>Envíos Express</h3>
+        <p>Entrega rápida a principales ciudades</p>
+      </div>
+      <div class="benefit-card">
+        <div class="card-icon" style="background: linear-gradient(135deg, #AB8F5A, #D4AF37);">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h3>Seguridad Garantizada</h3>
+        <p>Protección de tus envíos en cada paso</p>
+      </div>
+    </section>
+
+    <!-- Sección de cobertura con mapa interactivo -->
+    <section class="coverage-section">
+      <div class="section-header">
+        <h2 class="section-title">Cobertura en <span>México</span></h2>
+        <p class="section-description">Llegamos a los principales destinos del país</p>
+      </div>
+      
+      <div class="coverage-container">
+        <div class="map-container">
+          <img src="/images/paises/mexico/map.png" alt="Mapa de México" class="mexico-map">
+        </div>
+        
+        <div class="city-list">
+          <h3>Principales ciudades:</h3>
+          <ul>
+            <li><i class="fas fa-map-marker-alt" style="color: #006847;"></i> Ciudad de México</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #CE1126;"></i> Guadalajara</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #AB8F5A;"></i> Monterrey</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #38b09d;"></i> Cancún</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #4B0082;"></i> Puebla</li>
+            <li><i class="fas fa-map-marker-alt" style="color: #FF8C00;"></i> Tijuana</li>
+          </ul>
+          <button class="btn-text" @click="showFullCoverage">
+            Ver todas las coberturas <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proceso de envío en pasos -->
+    <section class="process-section">
+      <div class="section-header">
+        <h2 class="section-title">Cómo <span>enviamos</span> a México</h2>
+        <p class="section-description">Un proceso simple y transparente</p>
+      </div>
+      
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Recibimos tu paquete</h3>
+            <p>En nuestros centros de recepción en EE.UU.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Procesamiento y embalaje</h3>
+            <p>Preparamos tu envío con los más altos estándares</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Transporte a México</h3>
+            <p>Vía aérea o terrestre según tus necesidades</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Entrega final</h3>
+            <p>En la dirección que nos indiques</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería minimalista -->
+    <section class="gallery-section">
+      <div class="section-header">
+        <h2 class="section-title">Nuestros <span>envíos</span> en acción</h2>
+        <p class="section-description">Así trabajamos para ti</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" @click="openLightbox('/images/imagen1.jpg')">
+          <img src="/images/imagen1.jpg" alt="Recepción de paquetes">
+          <div class="item-overlay">
+            <h3>Recepción</h3>
+          </div>
+        </div>
+        <div class="gallery-item" @click="openLightbox('/images/12.jpg')">
+          <img src="/images/12.jpg" alt="Transporte de paquetes">
+          <div class="item-overlay">
+            <h3>Transporte</h3>
+          </div>
+        </div>
+        <div class="gallery-item" @click="openLightbox('/images/entrega.jpeg')">
+          <img src="/images/entrega.jpeg" alt="Entrega en México">
+          <div class="item-overlay">
+            <h3>Entrega</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destinos populares -->
+    <section class="destinations-section">
+      <div class="section-header">
+        <h2 class="section-title">Destinos <span>populares</span></h2>
+        <p class="section-description">Ciudades a las que enviamos frecuentemente</p>
+      </div>
+      
+      <div class="destinations-grid">
+        <div class="destination-card">
+          <img src="/images/8095.jpg" alt="Ciudad de México">
+          <div class="destination-info">
+            <h3>Ciudad de México</h3>
+            <p>Capital vibrante y cosmopolita</p>
+          </div>
+        </div>
+        <div class="destination-card">
+          <img src="/images/6355.jpg" alt="Cancún">
+          <div class="destination-info">
+            <h3>Riviera Maya</h3>
+            <p>Paraíso de playas y cultura</p>
+          </div>
+        </div>
+        <div class="destination-card">
+          <img src="/images/guadalajara.jpg" alt="Guadalajara">
+          <div class="destination-info">
+            <h3>Guadalajara</h3>
+            <p>Tradición y modernidad</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="testimonials-section">
+      <div class="section-header">
+        <h2 class="section-title">Clientes que <span>confían</span> en nosotros</h2>
+        <p class="section-description">Experiencias reales de envíos a México</p>
+      </div>
+      
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="client-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">
+            "Excelente servicio, mi paquete llegó a CDMX en menos tiempo del estimado y en perfectas condiciones."
+          </p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="client-details">
+              <h4>Ana Rodríguez</h4>
+              <p>Ciudad de México</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="client-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="testimonial-text">
+            "Envío regularmente a mi familia en Guadalajara y siempre han sido muy confiables y con buen precio."
+          </p>
+          <div class="client-info">
+            <div class="client-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="client-details">
+              <h4>Carlos Méndez</h4>
+              <p>Los Ángeles, California</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="final-cta" style="background: linear-gradient(135deg, #006847, #CE1126);">
+      <div class="cta-container">
+        <h2>¿Listo para enviar a México?</h2>
+        <p>Comienza hoy mismo con nuestro servicio confiable y eficiente</p>
+        <button class="btn-primary btn-large" @click="scrollToQuote">
+          <i class="fas fa-paper-plane"></i> Iniciar Envío
+        </button>
+      </div>
+    </section>
+
+    <!-- Lightbox para galería -->
+    <div class="lightbox" v-if="lightboxVisible" @click="closeLightbox">
+      <div class="lightbox-content">
+        <img :src="currentImage" alt="Imagen ampliada">
+        <button class="lightbox-close" @click.stop="closeLightbox">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import 'animate.css';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-// No se necesita lógica específica aquí para este rediseño,
-// pero puedes añadirla si es necesario (ej. para sliders complejos, etc.)
+const router = useRouter();
+const lightboxVisible = ref(false);
+const currentImage = ref('');
 
-onMounted(() => {
-  // Inicializaciones si fueran necesarias
-});
+const showFullCoverage = () => {
+  alert('Mostrar modal con cobertura completa para México');
+};
+
+const openLightbox = (image) => {
+  currentImage.value = image;
+  lightboxVisible.value = true;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeLightbox = () => {
+  lightboxVisible.value = false;
+  document.body.style.overflow = '';
+};
+
+const scrollToQuote = () => {
+  const quoteSection = document.querySelector('#quote-section');
+  if (quoteSection) {
+    quoteSection.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    router.push('/cotizar?destino=mexico');
+  }
+};
 </script>
 
 <style scoped>
-/* --- Variables Locales y Colores Mexicanos --- */
-:root {
-  --primary-color: #e74c3c; /* Mantener un primario general si se usa */
-  --secondary-color: #3498db;
-  --dark-color: #2c3e50;
-  --light-color: #f8f9fa;
-  --text-color: #333;
-  --text-muted: #6c757d;
-  --font-family: 'Poppins', sans-serif;
-  --border-radius: 12px; /* Bordes más redondeados */
-  --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
-  --header-height-shrunk: 75px; /* Debe coincidir con PaisesView */
-
-  /* Colores Mexicanos */
-  --mexico-green: #006847;
-  --mexico-red: #CE1126;
-  --mexico-white: #FFFFFF;
-  --mexico-gold: #AB8F5A; /* Un dorado/café sutil */
-  --mexico-terracotta: #E2725B; /* Terracota cálido */
-}
-
-/* --- Estilo Base y Padding --- */
+/* Estilos base */
 .country-content-area {
-  padding-top: var(--header-height-shrunk);
-  background-color: var(--mexico-white);
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
-.section-padding { padding: 90px 0; }
-.bg-light { background-color: #f7f7f7; } /* Un gris muy claro */
-.text-center { text-align: center; }
-.highlight { color: var(--primary-color); font-weight: 600; }
-.highlight-mexico-green { color: var(--mexico-green); font-weight: 700; }
-.highlight-mexico-red { color: var(--mexico-red); font-weight: 700; }
+
+/* Hero Banner */
+.hero-banner {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.flag-colors {
+  display: flex;
+  width: 150px;
+  height: 8px;
+  margin: 0 auto 20px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.flag-colors .color {
+  flex: 1;
+}
+
+.flag-colors .green { background-color: #006847; }
+.flag-colors .white { background-color: white; }
+.flag-colors .red { background-color: #CE1126; }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #006847, #CE1126);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  margin-bottom: 40px;
+  opacity: 0.9;
+  font-weight: 300;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-outline {
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #006847;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #005538;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-outline:hover {
+  background-color: rgba(255,255,255,0.1);
+  transform: translateY(-3px);
+}
+
+/* Floating Benefits */
+.floating-benefits {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: -50px auto 0;
+  position: relative;
+  z-index: 3;
+  padding: 0 20px;
+  max-width: 1200px;
+}
+
+.benefit-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.card-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.benefit-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #2d3748;
+}
+
+.benefit-card p {
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+/* Section Styles */
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
 
 .section-title {
-  font-size: clamp(2.2rem, 5.5vw, 3rem);
-  margin-bottom: 25px;
-  position: relative;
-  padding-bottom: 20px;
+  font-size: clamp(2rem, 5vw, 2.8rem);
   font-weight: 700;
-  color: var(--dark-color);
-  line-height: 1.3;
+  margin-bottom: 15px;
+  color: #2d3748;
 }
-.section-title.text-center::after {
+
+.section-title span {
+  color: #006847;
+}
+
+.section-description {
+  font-size: 1.1rem;
+  color: #718096;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Coverage Section */
+.coverage-section {
+  padding: 100px 0;
+  background-color: #f8fafc;
+}
+
+.coverage-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 50px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.map-container {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+}
+
+.mexico-map {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.city-marker {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #006847;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px rgba(44,123,229,0.5);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.city-marker:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.city-list {
+  flex: 1;
+  min-width: 300px;
+}
+
+.city-list h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #2d3748;
+}
+
+.city-list ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.city-list li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4a5568;
+}
+
+.city-list i {
+  font-size: 1.1rem;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #006847;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0;
+  font-size: 1rem;
+}
+
+.btn-text:hover {
+  text-decoration: underline;
+}
+
+/* Process Section */
+.process-section {
+  padding: 100px 0;
+  background-color: white;
+}
+
+.process-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.step {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90px;
-  height: 5px;
-  background: linear-gradient(90deg, var(--mexico-green), var(--mexico-red)); /* Degradado bandera */
-  border-radius: 3px;
-}
-.section-subtitle {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  max-width: 750px;
-  margin: 0 auto 60px auto;
-  font-weight: 300;
-  line-height: 1.7;
+  left: 35px;
+  top: 60px;
+  bottom: -40px;
+  width: 2px;
+  background-color: #e2e8f0;
 }
 
-/* ============================================= */
-/* ==    1. HERO INMERSIVO - BIENVENIDA       == */
-/* ============================================= */
-.mexico-hero-local {
-    position: relative;
-    min-height: 75vh; /* Más alto */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--mexico-white);
-    overflow: hidden;
-}
-.hero-background {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
-    background-color: var(--mexico-green);
-}
-.hero-bg-img {
-    width: 100%; height: 100%; object-fit: cover;
-    opacity: 0.8; /* Imagen ligeramente transparente */
-}
-.hero-overlay-pattern {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;
-    background: linear-gradient(rgba(0, 104, 71, 0.5), rgba(0, 0, 0, 0.7)); /* Degradado con verde */
-    /* Opcional: Patrón sutil */
-    /* background-image: url('/images/patterns/mexican-pattern-subtle.png'); */
-    /* background-repeat: repeat; */
-}
-.hero-content { position: relative; z-index: 3; }
-
-.flag-colors-bar {
-    display: flex;
-    height: 8px; /* Grosor de la barra */
-    width: 150px; /* Ancho de la barra */
-    margin: 0 auto 25px auto; /* Centrada y con espacio */
-    border-radius: 4px;
-    overflow: hidden;
-}
-.color-stripe { flex: 1; }
-.color-stripe.green { background-color: var(--mexico-green); }
-.color-stripe.white { background-color: var(--mexico-white); }
-.color-stripe.red { background-color: var(--mexico-red); }
-
-.hero-title-local {
-    font-size: clamp(2.8rem, 7vw, 4.5rem);
-    font-weight: 800; /* Más peso */
-    line-height: 1.15;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-}
-.hero-title-local .line1 { display: block; }
-.hero-title-local .line2 { display: block; }
-
-.hero-subtitle-local {
-    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-    opacity: 0.95;
-    font-weight: 300;
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.hero-cta { /* Estilos base del botón CTA heredados o definidos aquí */
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    background: var(--mexico-red);
-    color: var(--mexico-white);
-    border: none;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-.hero-cta:hover {
-    background: var(--mexico-green);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-/* ============================================= */
-/* ==    2. VENTAJAS CON SABOR LOCAL         == */
-/* ============================================= */
-.advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 35px;
-}
-.advantage-card {
-    background-color: var(--mexico-white);
-    border-radius: var(--border-radius);
-    padding: 30px;
-    text-align: center;
-    box-shadow: var(--box-shadow);
-    border: 1px solid #eee;
-    display: flex;
-    flex-direction: column; /* Para alinear imagen abajo */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-left: 6px solid; /* Borde lateral con color */
-}
-.advantage-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-/* Asignar colores de borde */
-.advantage-card:nth-child(1) { border-left-color: var(--mexico-green); }
-.advantage-card:nth-child(2) { border-left-color: var(--mexico-red); }
-.advantage-card:nth-child(3) { border-left-color: var(--mexico-gold); }
-
-.advantage-icon-wrapper {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    margin: 0 auto 25px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--mexico-white);
-    font-size: 2rem;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-}
-.icon-green { background-color: var(--mexico-green); }
-.icon-red { background-color: var(--mexico-red); }
-.icon-gold { background-color: var(--mexico-gold); }
-
-.advantage-card h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--dark-color);
-    margin-bottom: 15px;
-}
-.advantage-card p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    flex-grow: 1; /* Empuja la imagen hacia abajo */
-    margin-bottom: 25px;
-}
-.advantage-image {
-    margin-top: auto; /* Asegura que esté al final */
-    border-radius: calc(var(--border-radius) - 6px); /* Ajustar radio */
-    overflow: hidden;
-}
-.advantage-image img {
-    display: block;
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-
-/* ============================================= */
-/* ==    3. EL VIAJE DE TU PAQUETE (Visual)   == */
-/* ============================================= */
-.journey-step {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-bottom: 60px;
-    background-color: var(--mexico-white);
-    padding: 30px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
-}
-.journey-step.reverse {
-    flex-direction: row-reverse;
-}
-.journey-image {
-    flex: 0 0 45%; /* Ancho fijo para la imagen */
-    max-width: 45%;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-}
-.journey-image img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-.journey-text {
-    flex: 1;
-    position: relative;
-    padding-left: 20px;
-}
 .step-number {
-    position: absolute;
-    top: -15px;
-    left: -25px;
-    font-size: 4rem;
-    font-weight: 800;
-    color: var(--light-color); /* Número semi-transparente */
-    z-index: 1;
-    line-height: 1;
-}
-.journey-step:nth-child(1) .step-number { color: rgba(0, 104, 71, 0.15); } /* Verde */
-.journey-step:nth-child(2) .step-number { color: rgba(206, 17, 38, 0.15); } /* Rojo */
-.journey-step:nth-child(3) .step-number { color: rgba(171, 143, 90, 0.15); } /* Oro */
-.journey-step:nth-child(4) .step-number { color: rgba(46, 204, 113, 0.15); } /* Verde claro */
-
-.journey-text h3 {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--dark-color);
-    margin-bottom: 15px;
-    position: relative; z-index: 2;
-}
-.journey-text p {
-    color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.7;
-     position: relative; z-index: 2;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #006847, #CE1126);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
-/* ============================================= */
-/* ==    4. GALERIA DE DESTINOS POPULARES     == */
-/* ============================================= */
+.step-content {
+  padding-top: 10px;
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #2d3748;
+}
+
+.step-content p {
+  color: #718096;
+}
+
+/* Gallery Section */
+.gallery-section {
+  padding: 100px 0;
+  background-color: #f8fafc;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: white;
+}
+
+.item-overlay h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover .item-overlay h3 {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Destinations Section */
+.destinations-section {
+  padding: 100px 0;
+  background-color: white;
+}
+
 .destinations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
+
 .destination-card {
-    position: relative;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
-    aspect-ratio: 3 / 4; /* Proporción más vertical */
-    transition: transform 0.4s ease;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-.destination-card:hover {
-    transform: scale(1.05);
-}
+
 .destination-card img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: filter 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
+
 .destination-card:hover img {
-    filter: brightness(0.7);
-}
-.destination-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 40px 20px 20px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    color: var(--mexico-white);
-    text-align: left;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.destination-card:hover .destination-overlay {
-    opacity: 1;
-    transform: translateY(0);
-}
-.destination-overlay h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0 0 5px 0;
-}
-.destination-overlay p {
-    font-size: 0.95rem;
-    margin: 0;
-    opacity: 0.9;
+  transform: scale(1.05);
 }
 
-/* ============================================= */
-/* ==    5. SERVICIOS CON IDENTIDAD           == */
-/* ============================================= */
-.services-visual-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 35px;
+.destination-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
 }
-.service-visual-card {
-    background-color: var(--mexico-white);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.service-visual-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-}
-.service-visual-image {
-    position: relative;
-}
-.service-visual-image img {
-    display: block;
-    width: 100%;
-    height: 220px; /* Altura imagen servicio */
-    object-fit: cover;
-}
-.service-visual-icon {
-    position: absolute;
-    bottom: -25px; /* Mitad dentro, mitad fuera */
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--primary-color); /* Color base icono */
-    color: var(--mexico-white);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-/* Colores específicos iconos */
-.service-visual-card:nth-child(1) .service-visual-icon { background-color: var(--mexico-green); }
-.service-visual-card:nth-child(2) .service-visual-icon { background-color: var(--mexico-red); }
-.service-visual-card:nth-child(3) .service-visual-icon { background-color: var(--mexico-gold); }
 
-.service-visual-content {
-    padding: 40px 25px 25px; /* Más padding superior por el icono */
+.destination-info h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.4rem;
 }
-.service-visual-content h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--dark-color);
-    margin: 0 0 10px 0;
-}
-.service-visual-content p {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-.service-tag {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.service-tag { background-color: #e0e0e0; color: #757575; }
-.service-tag.urgent { background-color: var(--mexico-red); color: var(--mexico-white); }
-.service-tag.business { background-color: var(--mexico-gold); color: var(--mexico-white); }
 
-/* ============================================= */
-/* ==      6. LLAMADA A LA ACCIÓN (CTA)       == */
-/* ============================================= */
-.mexico-cta-local {
-    position: relative;
-    background-color: var(--dark-color);
-    color: var(--mexico-white);
-    overflow: hidden;
+.destination-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
 }
-.cta-background-pattern {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    /* Opcional: Patrón muy sutil */
-    /* background-image: url('/images/patterns/aztec-pattern-dark.png'); */
-    opacity: 0.05;
-    z-index: 1;
-}
-.cta-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-}
-.cta-title-local {
-    font-size: clamp(2.2rem, 5.5vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-.cta-text-local {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    opacity: 0.9;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.cta-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
 
-.cta-button.mexico-green-btn {
-    background-color: var(--mexico-green);
-    color: var(--mexico-white);
-    border-color: var(--mexico-green);
+/* Testimonials Section */
+.testimonials-section {
+  padding: 100px 0;
+  background-color: #f8fafc;
 }
-.cta-button.mexico-green-btn:hover {
-    background-color: #004c33; /* Verde más oscuro */
-    border-color: #004c33;
-    transform: translateY(-3px);
-}
-.cta-button.mexico-red-btn {
-    background-color: var(--mexico-red);
-    color: var(--mexico-white);
-    border-color: var(--mexico-red);
-}
-.cta-button.mexico-red-btn:hover {
-    background-color: #a70f1f; /* Rojo más oscuro */
-    border-color: #a70f1f;
-    transform: translateY(-3px);
-}
-/* Heredar estilos base de .cta-button si están definidos globalmente */
-.cta-button { padding: 14px 35px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 2px solid transparent; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-
-/* --- Responsive --- */
-@media (max-width: 992px) {
-    .journey-step { flex-direction: column !important; text-align: center; }
-    .journey-step.reverse { flex-direction: column !important; }
-    .journey-image { max-width: 80%; margin-bottom: 20px; }
-    .journey-text { padding-left: 0; }
-    .step-number { top: 5px; left: 50%; transform: translateX(-50%); font-size: 3rem; }
-    .destinations-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.testimonials-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+.testimonial-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #edf2f7;
+}
+
+.client-rating {
+  color: #f6c342;
+  margin-bottom: 20px;
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: #4a5568;
+  margin-bottom: 25px;
+  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.testimonial-text::before {
+  content: '"';
+  font-size: 3rem;
+  color: #e2e8f0;
+  position: absolute;
+  top: -20px;
+  left: -15px;
+  font-family: serif;
+  line-height: 1;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.client-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #edf2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #006847;
+  font-size: 1.5rem;
+}
+
+.client-details h4 {
+  margin: 0;
+  color: #2d3748;
+  font-size: 1.1rem;
+}
+
+.client-details p {
+  margin: 5px 0 0;
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+/* Final CTA */
+.final-cta {
+  padding: 100px 20px;
+  color: white;
+  text-align: center;
+}
+
+.cta-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.final-cta h2 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 15px;
+}
+
+.final-cta p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.btn-large {
+  padding: 16px 40px;
+  font-size: 1.1rem;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .country-content-area { padding-top: 65px; }
-  .section-padding { padding: 60px 0; }
-  .advantages-grid { grid-template-columns: 1fr; }
-  .destinations-grid { grid-template-columns: 1fr 1fr; }
-  .services-visual-container { grid-template-columns: 1fr; }
-}
-@media (max-width: 576px) {
-  .section-padding { padding: 50px 0; }
-  .mexico-hero-local { min-height: 65vh; }
-  .hero-title-local { font-size: 2.2rem; }
-  .hero-subtitle-local { font-size: 1.1rem; }
-  .flag-colors-bar { width: 100px; height: 6px; }
-  .destinations-grid { grid-template-columns: 1fr; }
-  .cta-buttons { flex-direction: column; align-items: center; }
-  .cta-button { width: 85%; justify-content: center; }
+  .hero-banner {
+    height: auto;
+    padding: 120px 0;
+  }
+  
+  .floating-benefits {
+    margin-top: 0;
+    padding: 0 20px 40px;
+  }
+  
+  .benefit-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .coverage-container {
+    flex-direction: column;
+  }
+  
+  .step:not(:last-child)::after {
+    left: 35px;
+    top: 60px;
+    bottom: -30px;
+  }
 }
 
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-primary, .btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .step {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .step:not(:last-child)::after {
+    left: 35px;
+    top: 70px;
+    bottom: -30px;
+    height: 30px;
+    width: 2px;
+  }
+  
+  .testimonials-container {
+    flex-direction: column;
+  }
+}
 </style>
