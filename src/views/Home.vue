@@ -119,6 +119,7 @@
       </div>
     </div>
   </section>
+  <QuoteForm/>
 </template>
 
 <style setup>
@@ -525,6 +526,7 @@
 import { ref } from 'vue'; // Asegúrate de importar ref
 import TrackingModal from '@/components/TrackingModal.vue';
 import MapaInteractivo from '@/components/MapaInteractivo.vue';
+import QuoteForm from '@/components/QuoteForm.vue';
 
 const trackingModalRef = ref(null); // Inicializa correctamente la referencia
 

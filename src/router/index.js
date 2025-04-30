@@ -12,6 +12,8 @@ import ElSalvador from '@/components/coverage/El-Salvador.vue'
 import Honduras from '@/components/coverage/Honduras.vue'
 import Nicaragua from '@/components/coverage/Nicaragua.vue'
 import Rutas from '@/views/Rutas.vue'
+import QuoteView from '@/views/QuoteView.vue'
+import QuoteForm from '@/components/QuoteForm.vue'
 
 const routes = [
   { path: '/', name: 'inicio', component: InicioView },
@@ -19,6 +21,16 @@ const routes = [
   { path: '/conocenos', name: 'Conocenos', component: Conocenos },
   { path: '/puerta-puerta', name: 'Puerta a Puerta', component: Puerta },
   { path: '/rutas', name: 'Rutas en EEUU', component: Rutas },
+  {
+    path: '/cotizar-form',
+    name: 'QuoteForm',
+    component: QuoteForm
+  },
+  {
+    path: '/cotizar',
+    name: 'QuoteView',
+    component: QuoteView
+  },
   
   {
     path: '/tracking-results',
