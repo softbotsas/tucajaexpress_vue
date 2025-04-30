@@ -11,13 +11,15 @@ import Puerta from '../views/Puerta.vue'
 import ElSalvador from '@/components/coverage/El-Salvador.vue'
 import Honduras from '@/components/coverage/Honduras.vue'
 import Nicaragua from '@/components/coverage/Nicaragua.vue'
+import Rutas from '@/views/Rutas.vue'
 
 const routes = [
   { path: '/', name: 'inicio', component: InicioView },
   { path: '/contactanos', name: 'Contactanos', component: Contactanos },
   { path: '/conocenos', name: 'Conocenos', component: Conocenos },
   { path: '/puerta-puerta', name: 'Puerta a Puerta', component: Puerta },
-  { path: '/el-salvador', name: 'El Salvador', component: ElSalvador },
+  { path: '/rutas', name: 'Rutas en EEUU', component: Rutas },
+  
   {
     path: '/tracking-results',
     name: 'tracking-results',
