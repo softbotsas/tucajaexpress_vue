@@ -181,7 +181,7 @@ $box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   /* Posición en móvil (más arriba) */
   @media (max-width: 767px) {
     bottom: 80px;
-    left: 20px;
+    left: 5px;
   }
   
   /* Ajuste extra para móviles pequeños */

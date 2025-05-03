@@ -1,22 +1,12 @@
 <template>
-  <!-- La clase 'country-view-active' se añade al div principal cuando un país está seleccionado -->
-  <div class="paises-view" :class="{ 'country-view-active': isCountrySelected }">
-
-    <!-- ================================================== -->
-    <!-- ==      Hero Banner / Top Header Dinámico       == -->
-    <!-- ================================================== -->
-    <section class="hero-banner" :class="{ 'header-shrunk': isCountrySelected }">
-      <!-- Overlay oscuro -->
+  <div class="paises-view">
+    <!-- Hero Banner solo en vista principal -->
+    <section v-if="isMainView" class="hero-banner">
       <div class="hero-overlay"></div>
+      <div class="hero-background-image"></div>
 
-      <!-- Imagen de fondo cuando NO hay país seleccionado -->
-      <div v-if="!isCountrySelected" class="hero-background-image"></div>
-
-      <!-- Contenedor del Contenido del Header -->
       <div class="container header-content-wrapper">
-
-        <!-- Contenido GRANDE del Header (Solo visible cuando NO hay país seleccionado) -->
-        <div v-if="!isCountrySelected" class="hero-main-content">
+        <div class="hero-main-content">
           <h1 class="hero-title animate__animated animate__fadeInDown">
             Envíos a <span class="highlight">México</span> y <span class="highlight">Centroamérica</span> sin complicaciones
           </h1>
@@ -25,9 +15,9 @@
           </p>
         </div>
 
-        <!-- Selector de Países (Siempre visible, pero se reubica/restila) -->
+        <!-- Selector de países solo en vista principal -->
         <div class="country-selector">
-          <p v-if="!isCountrySelected" class="selector-prompt animate__animated animate__fadeInUp animate__delay-1s">
+          <p class="selector-prompt animate__animated animate__fadeInUp animate__delay-1s">
             Selecciona un país para ver detalles:
           </p>
           <div class="tabs-container">
@@ -36,8 +26,7 @@
               :key="country.id"
               :to="'/paises/' + country.path"
               class="country-tab"
-              :class="{ 'active': $route.path.endsWith('/' + country.path) }"
-              @click="handleCountryClick"
+              :class="{ 'active': $route.path === '/paises/' + country.path }"
             >
               <img
                 :src="country.flagSrc"
@@ -47,35 +36,28 @@
               <span>{{ country.name }}</span>
             </router-link>
           </div>
-        </div> <!-- Fin Country Selector -->
-
-      </div> <!-- Fin Header Content Wrapper -->
-
-      <!-- Indicador de Scroll (Solo visible cuando NO hay país seleccionado) -->
-      <div v-if="!isCountrySelected" @click="scrollToContent" class="scroll-indicator animate__animated animate__bounce animate__infinite animate__delay-2s">
-        <i class="fas fa-chevron-down"></i>
+        </div>
       </div>
 
-    </section> <!-- Fin Hero Banner / Top Header -->
+      <div @click="scrollToContent" class="scroll-indicator animate__animated animate__bounce animate__infinite animate__delay-2s">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
 
-    <!-- ================================================== -->
-    <!-- ==           Contenido Dinámico                 == -->
-    <!-- ================================================== -->
+    <!-- Contenido dinámico de países -->
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
         <component :is="Component" :key="$route.path" />
       </transition>
     </router-view>
 
-    <!-- ================================================== -->
-    <!-- == Secciones Adicionales (Solo Vista General)   == -->
-    <!-- ================================================== -->
-    <template v-if="!isCountrySelected">
+    <!-- Secciones adicionales (solo en vista general) -->
+    <template v-if="isMainView">
       <section id="intro-regional" class="intro-regional section-padding">
         <div class="container">
           <h2 class="section-title text-center">Conectando <span class="highlight">el Continente</span></h2>
           <p class="text-center intro-text">
-            Somos especialistas en logística entre Estados Unidos y Latinoamérica. Ofrecemos soluciones a medida para tus necesidades de envío a México y todos los países de Centroamérica.
+            Somos especialistas en logística entre Estados Unidos y Latinoamérica. Ofrecemos soluciones a medida para tus necesidades de envío.
           </p>
         </div>
       </section>
@@ -112,8 +94,7 @@
         </div>
       </section>
     </template>
-
-  </div> <!-- Fin Paises View -->
+  </div>
 </template>
 
 <script>
@@ -141,11 +122,7 @@ export default {
       { icon: 'fas fa-handshake', title: 'Socio Confiable', description: 'Años de experiencia en envíos internacionales', color: '#f39c12' }
     ])
 
-    const isCountrySelected = computed(() => {
-      return route.path !== '/paises' && countries.value.some(country => 
-        route.path.startsWith(`/paises/${country.path}`)
-      )
-    })
+    const isMainView = computed(() => route.path === '/paises')
 
     const scrollToContent = () => {
       const firstSection = document.querySelector('#intro-regional')
@@ -154,23 +131,18 @@ export default {
       }
     }
 
-    const handleCountryClick = () => {
-      setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, 100)
-    }
-
     return {
       countries,
       regionalBenefits,
-      isCountrySelected,
-      scrollToContent,
-      handleCountryClick
+      isMainView,
+      scrollToContent
     }
   }
 }
 </script>
 
 <style scoped>
-/* --- Variables CSS Globales --- */
+/* Variables CSS */
 :root {
   --primary-color: #e74c3c;
   --secondary-color: #3498db;
@@ -181,11 +153,9 @@ export default {
   --font-family: 'Poppins', sans-serif;
   --border-radius: 8px;
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  --header-height-shrunk: 75px;
-  --header-transition-duration: 0.4s;
 }
 
-/* --- Estilos Base --- */
+/* Estilos Base */
 .paises-view {
   font-family: var(--font-family);
   color: var(--text-color);
@@ -218,23 +188,17 @@ export default {
   background-color: var(--light-color);
 }
 
-/* ================================================== */
-/* ==      Estilos del Header (Dinámico)           == */
-/* ================================================== */
+/* Hero Banner */
 .hero-banner {
   position: relative;
-  color: white;
-  text-align: center;
-  overflow: hidden;
-  transition: min-height var(--header-transition-duration) ease-in-out,
-              padding var(--header-transition-duration) ease-in-out,
-              background-color var(--header-transition-duration) ease-in-out;
   min-height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 60px 0 80px;
-  background-color: var(--dark-color);
+  color: white;
+  text-align: center;
+  overflow: hidden;
 }
 
 .hero-background-image {
@@ -245,8 +209,6 @@ export default {
   height: 100%;
   background: url('/images/backgrounds/paises-intro.jpeg') center center / cover no-repeat;
   z-index: 0;
-  opacity: 1;
-  transition: opacity var(--header-transition-duration) ease-in-out;
 }
 
 .hero-overlay {
@@ -257,7 +219,6 @@ export default {
   height: 100%;
   background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.85));
   z-index: 1;
-  transition: background var(--header-transition-duration) ease-in-out;
 }
 
 .header-content-wrapper {
@@ -269,7 +230,6 @@ export default {
 }
 
 .hero-main-content {
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
   max-width: 800px;
   margin-bottom: 40px;
 }
@@ -290,13 +250,11 @@ export default {
   opacity: 0.9;
 }
 
+/* Country Selector */
 .country-selector {
   width: 100%;
   position: relative;
   z-index: 5;
-  transition: margin-top var(--header-transition-duration) ease-in-out,
-              padding var(--header-transition-duration) ease-in-out,
-              background-color var(--header-transition-duration) ease-in-out;
   margin-top: 30px;
 }
 
@@ -369,97 +327,7 @@ export default {
   color: white;
 }
 
-/* ================================================== */
-/* ==       Estado Encogido del Header             == */
-/* ================================================== */
-.hero-banner.header-shrunk {
-  min-height: var(--header-height-shrunk);
-  height: var(--header-height-shrunk);
-  padding: 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--dark-color);
-  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-}
-
-.hero-banner.header-shrunk .hero-background-image {
-  opacity: 0;
-}
-
-.hero-banner.header-shrunk .hero-overlay {
-  background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.98));
-}
-
-.hero-banner.header-shrunk .hero-main-content {
-  opacity: 0;
-  transform: scale(0.8);
-  height: 0;
-  overflow: hidden;
-  pointer-events: none;
-  margin-bottom: 0;
-}
-
-.hero-banner.header-shrunk .header-content-wrapper {
-  justify-content: center;
-  height: 100%;
-}
-
-.hero-banner.header-shrunk .country-selector {
-  margin-top: 0;
-  padding: 0;
-  background-color: transparent;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.hero-banner.header-shrunk .tabs-container {
-  justify-content: center;
-  gap: 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 0 10px;
-}
-
-.hero-banner.header-shrunk .tabs-container::-webkit-scrollbar {
-    display: none;
-}
-
-.hero-banner.header-shrunk .country-tab {
-  padding: 8px 12px;
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  border-radius: 0;
-  margin: 0 8px;
-  transform: none !important;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-
-.hero-banner.header-shrunk .country-tab:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
-.hero-banner.header-shrunk .country-tab.active {
-  background-color: transparent;
-  border-color: var(--primary-color);
-  color: white;
-  font-weight: 600;
-}
-
-.hero-banner.header-shrunk .scroll-indicator {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ================================================== */
-/* ==           Contenido Dinámico                 == */
-/* ================================================== */
-/* Transición para Router View */
+/* Router View Transition */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -475,9 +343,7 @@ export default {
   transform: translateY(-10px);
 }
 
-/* ================================================== */
-/* ==     Estilos Secciones Generales (Intro, etc) == */
-/* ================================================== */
+/* Secciones adicionales */
 .section-title {
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   margin-bottom: 50px;
@@ -497,10 +363,6 @@ export default {
   height: 4px;
   background: var(--primary-color);
   border-radius: 2px;
-}
-
-.intro-regional {
-  background-color: #fff;
 }
 
 .intro-text {
@@ -606,31 +468,14 @@ export default {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* ================================================== */
-/* ==            Media Queries Responsive          == */
-/* ================================================== */
+/* Responsive Design */
 @media (max-width: 992px) {
   .section-padding { padding: 70px 0; }
 }
 
 @media (max-width: 768px) {
-  :root {
-    --header-height-shrunk: 65px;
-  }
-  
   .hero-banner {
     min-height: 75vh;
-  }
-  
-  .hero-banner.header-shrunk .country-tab {
-    padding: 6px 10px;
-    font-size: 0.85rem;
-    margin: 0 5px;
-  }
-  
-  .hero-banner.header-shrunk .flag-icon {
-    width: 18px;
-    margin-right: 6px;
   }
   
   .section-padding { padding: 60px 0; }
@@ -647,15 +492,6 @@ export default {
   .hero-title { font-size: 2rem; }
   .hero-subtitle { font-size: 1rem; }
   .tabs-container { gap: 8px; }
-  
-  .hero-banner.header-shrunk .tabs-container {
-    padding: 0 5px;
-  }
-  
-  .hero-banner.header-shrunk .country-tab {
-    margin: 0 3px;
-    padding: 5px 8px;
-  }
   
   .section-padding { padding: 50px 0; }
   

@@ -19,7 +19,7 @@
               <!-- Acceso empleados -->
               <a href="https://sistematce.com" target="_blank" class="employee-access text-white px-2 mr-2 d-flex align-items-center">
                 <i class="fas fa-key mr-1"></i>
-                <span class="d-none d-sm-inline">Acceso Empleados</span>
+                <span class="d-none d-sm-inline">Ingresar</span>
                 <span class="d-inline d-sm-none">Ingresar</span>
               </a>
               
