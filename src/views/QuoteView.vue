@@ -1,402 +1,528 @@
 <template>
-    <div class="quote-simulator-page">
-      <!-- Hero Section -->
-      <div class="simulator-hero">
-        <div class="container">
-          <div class="hero-content">
-            <h1 class="hero-title">Simula tu envío internacional</h1>
-            <p class="hero-subtitle">Compara opciones y encuentra la mejor solución para tus necesidades</p>
-            <div class="breadcrumbs">
-              <router-link to="/" class="breadcrumb-link">Inicio</router-link>
-              <span class="breadcrumb-separator">/</span>
-              <span class="breadcrumb-current">Cotización</span>
-            </div>
+  <div class="quote-simulator-page">
+    <!-- Hero Section -->
+    <div class="simulator-hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">Simula tu envío internacional</h1>
+          <p class="hero-subtitle">Compara opciones y encuentra la mejor solución para tus necesidades</p>
+          <div class="breadcrumbs">
+            <router-link to="/" class="breadcrumb-link">Inicio</router-link>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Cotización</span>
           </div>
         </div>
       </div>
-  
-      <!-- Main Content -->
-      <div class="simulator-container">
-        <div class="container">
-          <div class="simulator-grid">
-            <!-- Form Column -->
-            <div class="form-column">
-              <div class="form-card">
-                <div class="form-header">
-                  <h2 class="form-title">Detalles del envío</h2>
-                  <p class="form-subtitle">Completa la información para obtener tu cotización</p>
-                </div>
-  
-                <div class="form-body">
-                  <div class="form-section">
-                    <h3 class="section-title">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                      </svg>
-                      Origen y destino
-                    </h3>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label for="origin">País de origen</label>
-                        <select v-model="quoteData.origin" id="origin" class="form-select">
-                          <option disabled value="">Selecciona un país</option>
-                          <option v-for="(country, index) in countries" :key="index" :value="country">
-                            {{ country }}
-                          </option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="destination">País destino</label>
-                        <select v-model="quoteData.destination" id="destination" @change="updateAvailableBoxes" class="form-select">
-                          <option disabled value="">Selecciona un país</option>
-                          <option v-for="(country, index) in countries" :key="index" :value="country">
-                            {{ country }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="form-section">
-                    <h3 class="section-title">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"></path>
-                        <path d="M16 10H8v4h8v-4z"></path>
-                        <path d="M12 6h0"></path>
-                      </svg>
-                      Dimensiones y peso
-                    </h3>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label for="height">Alto (cm)</label>
-                        <input v-model.number="quoteData.height" @input="calculateDimensions" type="number" id="height" class="form-input" placeholder="Ej: 20">
-                      </div>
-                      <div class="form-group">
-                        <label for="length">Largo (cm)</label>
-                        <input v-model.number="quoteData.length" @input="calculateDimensions" type="number" id="length" class="form-input" placeholder="Ej: 30">
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label for="width">Ancho (cm)</label>
-                        <input v-model.number="quoteData.width" @input="calculateDimensions" type="number" id="width" class="form-input" placeholder="Ej: 15">
-                      </div>
-                      <div class="form-group">
-                        <label for="weight">Peso (lb)</label>
-                        <input v-model.number="quoteData.weight" @input="calculateDimensions" type="number" id="weight" class="form-input" placeholder="Ej: 5">
-                      </div>
-                    </div>
-                  </div>
-  
-                  <div class="form-section">
-                    <h3 class="section-title">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="1" x2="12" y2="23"></line>
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                      </svg>
-                      Valor declarado
-                    </h3>
-                    <div class="form-group">
-                      <label for="declaredValue">Valor mínimo declarado (USD)</label>
-                      <input v-model.number="quoteData.declaredValue" type="number" id="declaredValue" class="form-input" placeholder="Ej: 100">
-                    </div>
-                  </div>
-  
-                  <div class="form-section">
-                    <h3 class="section-title">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                      </svg>
-                      Dirección de recogida
-                    </h3>
-                    <div class="form-group">
-                      <label for="address">Dirección completa</label>
-                      <textarea v-model="quoteData.address" id="address" class="form-textarea" rows="3" placeholder="Ej: Calle Principal #123, Ciudad, Estado"></textarea>
-                    </div>
-                    <div class="location-actions">
-                      <button type="button" @click="getLocation" class="location-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                          <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        Usar mi ubicación actual
-                      </button>
-                      <div v-if="location" class="location-link">
-                        <a :href="googleMapsLink" target="_blank" class="map-link">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                          </svg>
-                          Ver en mapa
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="simulator-container">
+      <div class="container">
+        <div class="simulator-grid">
+          <!-- Form Column -->
+          <div class="form-column">
+            <div class="form-card">
+              <div class="form-header">
+                <h2 class="form-title">Detalles del envío</h2>
+                <p class="form-subtitle">Completa la información para obtener tu cotización</p>
               </div>
-            </div>
-  
-            <!-- Results Column -->
-            <div class="results-column">
-              <div class="customer-card">
-                <div class="customer-header">
-                  <div class="customer-avatar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                  <div class="customer-info">
-                    <h3 class="customer-name">{{ customerData.name }}</h3>
-                    <p class="customer-contact">{{ customerData.email }} • {{ customerData.phone }}</p>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="results-card">
-                <h2 class="results-title">Tu cotización</h2>
-                <p class="results-subtitle">Selecciona la opción que mejor se adapte a tus necesidades</p>
-  
-                <div v-if="availableBoxes.length === 0" class="empty-state">
-                  <div class="empty-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+              <div class="form-body">
+                <div class="form-section">
+                  <h3 class="section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                       <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                       <line x1="12" y1="22.08" x2="12" y2="12"></line>
                     </svg>
-                  </div>
-                  <h3 class="empty-title">Completa los datos del envío</h3>
-                  <p class="empty-text">Ingresa las dimensiones y peso de tu paquete para ver las opciones disponibles</p>
-                </div>
-  
-                <div v-else class="box-options">
-                  <div v-for="(box, index) in availableBoxes" :key="index" 
-                       class="box-option" 
-                       :class="{ 'selected': selectedBox === box.id }"
-                       @click="selectBox(box.id)">
-                    <div class="box-image-container">
-                      <img :src="box.image" :alt="`Caja ${box.dimensions}`" class="box-image">
-                      <div class="box-dimensions">{{ box.dimensions }}</div>
+                    Origen y destino
+                  </h3>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="origin">País de origen</label>
+                      <input 
+                        type="text" 
+                        id="origin" 
+                        class="form-input" 
+                        value="Estados Unidos" 
+                        disabled>
                     </div>
-                    <div class="box-details">
-                      <div class="box-price">{{ calculatePrice(box) }}</div>
-                      <div class="box-features">
-                        <div class="feature">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                          </svg>
-                          Seguro incluido
-                        </div>
-                        <div class="feature">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                          </svg>
-                          Soporte 24/7
-                        </div>
+                    <div class="form-group">
+                      <label for="destination">País destino</label>
+                      <select 
+                        v-model="quoteData.destination" 
+                        id="destination" 
+                        @change="updateAvailableBoxes" 
+                        class="form-select"
+                        required>
+                        <option disabled value="">Selecciona un país</option>
+                        <option v-for="(country, index) in countries" :key="index" :value="country">
+                          {{ country }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3 class="section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"></path>
+                      <path d="M16 10H8v4h8v-4z"></path>
+                      <path d="M12 6h0"></path>
+                    </svg>
+                    Tipo de paquete
+                  </h3>
+                  
+                  <div class="form-group">
+                    <label>Tipo de envío</label>
+                    <div class="radio-group">
+                      <label class="radio-option">
+                        <input 
+                          type="radio" 
+                          v-model="quoteData.boxType" 
+                          value="standard"
+                          @change="quoteData.selectedStandardBox = null">
+                        Caja estándar
+                      </label>
+                      <label class="radio-option">
+                        <input 
+                          type="radio" 
+                          v-model="quoteData.boxType" 
+                          value="custom"
+                          @change="quoteData.customDimensions = { height: null, length: null, width: null }">
+                        Caja personalizada
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div v-if="quoteData.boxType === 'custom'" class="custom-box-form">
+                    <label>Ingresa las dimensiones personalizadas (cm)</label>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <input 
+                          v-model.number="quoteData.customDimensions.height" 
+                          type="number" 
+                          placeholder="Alto"
+                          min="1"
+                          @input="calculatePrice">
+                      </div>
+                      <div class="form-group">
+                        <input 
+                          v-model.number="quoteData.customDimensions.length" 
+                          type="number" 
+                          placeholder="Largo"
+                          min="1"
+                          @input="calculatePrice">
+                      </div>
+                      <div class="form-group">
+                        <input 
+                          v-model.number="quoteData.customDimensions.width" 
+                          type="number" 
+                          placeholder="Ancho"
+                          min="1"
+                          @input="calculatePrice">
+                      </div>
+                    </div>
+                    <div v-if="!validateCustomBox() && quoteData.boxType === 'custom'" class="warning-message">
+                      Por favor ingresa todas las dimensiones válidas
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3 class="section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="1" x2="12" y2="23"></line>
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    Valor declarado
+                  </h3>
+                  <div class="form-group">
+                    <label for="declaredValue">Valor mínimo declarado (USD)</label>
+                    <input 
+                      v-model.number="quoteData.declaredValue" 
+                      type="number" 
+                      id="declaredValue" 
+                      class="form-input" 
+                      placeholder="Ej: 100"
+                      min="0"
+                      @input="calculatePrice">
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3 class="section-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Dirección de recogida
+                  </h3>
+                  <div class="form-group">
+                    <label for="address">Dirección completa</label>
+                    <textarea 
+                      v-model="quoteData.address" 
+                      id="address" 
+                      class="form-textarea" 
+                      rows="3" 
+                      placeholder="Ej: Calle Principal #123, Ciudad, Estado"
+                      required></textarea>
+                  </div>
+                  <div class="location-actions">
+                    <button type="button" @click="getLocation" class="location-button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                      </svg>
+                      Usar mi ubicación actual
+                    </button>
+                    <div v-if="location" class="location-link">
+                      <a :href="googleMapsLink" target="_blank" class="map-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                          <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Ver en mapa
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Column -->
+          <div class="results-column">
+            <div class="customer-card">
+              <div class="customer-header">
+                <div class="customer-avatar">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="customer-info">
+                  <h3 class="customer-name">{{ customerData.name }}</h3>
+                  <p class="customer-contact">{{ customerData.email }} • {{ customerData.phone }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="results-card">
+              <h2 class="results-title">Tu cotización</h2>
+              <p class="results-subtitle">Selecciona la opción que mejor se adapte a tus necesidades</p>
+
+              <div v-if="!quoteData.destination" class="empty-state">
+                <div class="empty-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                </div>
+                <h3 class="empty-title">Selecciona un país destino</h3>
+                <p class="empty-text">Elige el país de destino para ver las opciones disponibles</p>
+              </div>
+
+              <div v-else-if="quoteData.boxType === 'standard'" class="box-options">
+                <div v-for="(box, index) in availableBoxes" :key="index" 
+                     class="box-option" 
+                     :class="{ 'selected': quoteData.selectedStandardBox === box.id }"
+                     @click="quoteData.selectedStandardBox = box.id">
+                  <div class="box-image-container">
+                    <img :src="box.image" :alt="box.dimensions" class="box-image">
+                    <div class="box-dimensions">{{ box.dimensions }}</div>
+                  </div>
+                  <div class="box-details">
+                    <div class="box-price">{{ calculatePrice(box) }}</div>
+                    <div class="box-features">
+                      <div class="feature">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                          <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                        Seguro incluido
+                      </div>
+                      <div class="feature">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        Soporte 24/7
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-  
-              <div class="summary-card">
-                <h3 class="summary-title">Resumen de cotización</h3>
-                <div class="summary-details">
-                  <div class="detail-row">
-                    <span class="detail-label">Cliente:</span>
-                    <span class="detail-value">{{ customerData.name }}</span>
+
+              <div v-else-if="quoteData.boxType === 'custom' && !validateCustomBox()" class="empty-state">
+                <div class="empty-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                </div>
+                <h3 class="empty-title">Ingresa las dimensiones</h3>
+                <p class="empty-text">Por favor completa todas las medidas de tu paquete personalizado</p>
+              </div>
+
+              <div v-else-if="quoteData.boxType === 'custom'" class="box-options">
+                <div class="box-option selected">
+                  <div class="box-image-container">
+                    <div class="custom-box-image">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                      </svg>
+                    </div>
+                    <div class="box-dimensions">{{ getSelectedBox().dimensions }}</div>
                   </div>
-                  <div v-if="selectedBox" class="detail-row">
-                    <span class="detail-label">Tamaño de caja:</span>
-                    <span class="detail-value">{{ getSelectedBoxDimensions() }}</span>
-                  </div>
-                  <div v-if="quoteData.origin && quoteData.destination" class="detail-row">
-                    <span class="detail-label">Ruta:</span>
-                    <span class="detail-value">{{ quoteData.origin }} → {{ quoteData.destination }}</span>
-                  </div>
-                  <div v-if="selectedBox" class="detail-row total-row">
-                    <span class="detail-label">Total estimado:</span>
-                    <span class="detail-value total-price">{{ calculatePrice(getSelectedBox()) }}</span>
+                  <div class="box-details">
+                    <div class="box-price">{{ calculatePrice(getSelectedBox()) }}</div>
+                    <div class="box-features">
+                      <div class="feature">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                          <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                        Seguro incluido
+                      </div>
+                      <div class="feature">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        Soporte 24/7
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button @click="requestPickup" class="request-button" :disabled="!selectedBox">
-                  Solicitar recogida
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="10" cy="20.5" r="1"></circle>
-                    <circle cx="18" cy="20.5" r="1"></circle>
-                    <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"></path>
-                  </svg>
-                </button>
               </div>
+            </div>
+
+            <div class="summary-card">
+              <h3 class="summary-title">Resumen de cotización</h3>
+              <div class="summary-details">
+                <div class="detail-row">
+                  <span class="detail-label">Cliente:</span>
+                  <span class="detail-value">{{ customerData.name }}</span>
+                </div>
+                <div v-if="quoteData.destination" class="detail-row">
+                  <span class="detail-label">Ruta:</span>
+                  <span class="detail-value">Estados Unidos → {{ quoteData.destination }}</span>
+                </div>
+                <div v-if="(quoteData.boxType === 'standard' && quoteData.selectedStandardBox) || (quoteData.boxType === 'custom' && validateCustomBox())" class="detail-row">
+                  <span class="detail-label">Tamaño de caja:</span>
+                  <span class="detail-value">{{ getSelectedBox().dimensions }}</span>
+                </div>
+                <div v-if="quoteData.declaredValue" class="detail-row">
+                  <span class="detail-label">Valor declarado:</span>
+                  <span class="detail-value">${{ quoteData.declaredValue.toFixed(2) }}</span>
+                </div>
+                <div v-if="(quoteData.boxType === 'standard' && quoteData.selectedStandardBox) || (quoteData.boxType === 'custom' && validateCustomBox())" class="detail-row total-row">
+                  <span class="detail-label">Total estimado:</span>
+                  <span class="detail-value total-price">{{ calculatePrice(getSelectedBox()) }}</span>
+                </div>
+              </div>
+              <button 
+                @click="requestPickup" 
+                class="request-button" 
+                :disabled="!isFormValid">
+                Solicitar recogida
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="10" cy="20.5" r="1"></circle>
+                  <circle cx="18" cy="20.5" r="1"></circle>
+                  <path d="M2.5 2.5h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6l1.6-8.4H7.1"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  const BOX_SIZES = [
-    { id: '16x16x16', dimensions: '16x16x16 cm', basePrice: 25, image: '/img/boxes/16x16x16.png' },
-    { id: '18x18x18', dimensions: '18x18x18 cm', basePrice: 30, image: '/img/boxes/18x18x18.png' },
-    { id: '20x20x20', dimensions: '20x20x20 cm', basePrice: 35, image: '/img/boxes/20x20x20.png' },
-    { id: '20x20x28', dimensions: '20x20x28 cm', basePrice: 40, image: '/img/boxes/20x20x28.png' },
-    { id: '26x24x24', dimensions: '26x24x24 cm', basePrice: 45, image: '/img/boxes/26x24x24.png' },
-    { id: '30x26x24', dimensions: '30x26x24 cm', basePrice: 50, image: '/img/boxes/30x26x24.png' },
-    { id: '34x26x28', dimensions: '34x26x28 cm', basePrice: 55, image: '/img/boxes/34x26x28.png' }
-  ];
-  
-  export default {
-    name: 'QuoteSimulator',
-    data() {
-      return {
-        customerData: {},
-        quoteData: {
-          origin: '',
-          destination: '',
+  </div>
+</template>
+
+<script>
+const BOX_SIZES = [
+  { id: '16x16x16', dimensions: '16x16x16 cm', basePrice: 25, image: '/images/16x16x16.png' },
+  { id: '18x18x18', dimensions: '18x18x18 cm', basePrice: 30, image: '/images/18x18x18.png' },
+  { id: '20x20x20', dimensions: '20x20x20 cm', basePrice: 35, image: '/images/20x20x20.png' },
+  { id: '20x20x28', dimensions: '20x20x28 cm', basePrice: 40, image: '/images/20x20x28.png' },
+  { id: '26x24x24', dimensions: '26x24x24 cm', basePrice: 45, image: '/images/26x24x24.png' },
+  { id: '30x26x24', dimensions: '30x26x24 cm', basePrice: 50, image: '/images/30x26x24.png' },
+  { id: '34x26x28', dimensions: '34x26x28 cm', basePrice: 55, image: '/images/34x26x28.png' }
+];
+
+export default {
+  name: 'QuoteSimulator',
+  data() {
+    return {
+      customerData: {},
+      quoteData: {
+        origin: 'Estados Unidos',
+        destination: '',
+        boxType: 'standard',
+        selectedStandardBox: null,
+        customDimensions: {
           height: null,
           length: null,
-          width: null,
-          weight: null,
-          declaredValue: null,
-          address: '',
-          location: null,
-          lat: null,
-          lng: null
+          width: null
         },
-        countries: ['Estados Unidos', 'México', 'Colombia', 'España', 'China', 'República Dominicana'],
-        availableBoxes: [],
-        selectedBox: null,
+        weight: null,
+        declaredValue: null,
+        address: '',
         location: null,
         lat: null,
         lng: null
-      };
-    },
-    computed: {
-      googleMapsLink() {
-        if (this.lat && this.lng) {
-          return `https://www.google.com/maps?q=${this.lat},${this.lng}`;
-        }
-        return '#';
+      },
+      countries: ['México', 'Colombia', 'España', 'China', 'República Dominicana', 'Perú', 'Chile', 'Argentina'],
+      availableBoxes: [],
+      location: null,
+      lat: null,
+      lng: null
+    };
+  },
+  computed: {
+    googleMapsLink() {
+      if (this.lat && this.lng) {
+        return `https://www.google.com/maps?q=${this.lat},${this.lng}`;
       }
+      return '#';
     },
-    created() {
-      const savedData = localStorage.getItem('quoteCustomerData');
-      if (savedData) {
-        this.customerData = JSON.parse(savedData);
+    isFormValid() {
+      if (!this.quoteData.destination || !this.quoteData.address) return false;
+      
+      if (this.quoteData.boxType === 'standard') {
+        return !!this.quoteData.selectedStandardBox;
       } else {
-        this.$router.push('/');
-      }
-    },
-    methods: {
-      updateAvailableBoxes() {
-        // Lógica para filtrar cajas disponibles según destino
-        this.availableBoxes = BOX_SIZES;
-        this.selectedBox = null;
-      },
-      calculateDimensions() {
-        if (this.quoteData.height && this.quoteData.length && this.quoteData.width) {
-          // Lógica para filtrar cajas según dimensiones
-          this.updateAvailableBoxes();
-        }
-      },
-      selectBox(boxId) {
-        this.selectedBox = boxId;
-      },
-      getSelectedBox() {
-        return BOX_SIZES.find(box => box.id === this.selectedBox);
-      },
-      getSelectedBoxDimensions() {
-        const box = this.getSelectedBox();
-        return box ? box.dimensions : '';
-      },
-      calculatePrice(box) {
-        if (!box) return '$0.00';
-        
-        let price = box.basePrice;
-        
-        // Aumento por peso (ejemplo: $1.5 por libra después de 5 libras)
-        if (this.quoteData.weight > 5) {
-          price += (this.quoteData.weight - 5) * 1.5;
-        }
-        
-        // Aumento por valor declarado (ejemplo: 3% del valor declarado)
-        if (this.quoteData.declaredValue) {
-          price += this.quoteData.declaredValue * 0.03;
-        }
-        
-        // Aumento por distancia (ejemplo basado en países)
-        if (this.quoteData.origin && this.quoteData.destination) {
-          if (this.quoteData.origin !== this.quoteData.destination) {
-            price += 15; // Costo adicional por envío internacional
-          }
-        }
-        
-        return `$${price.toFixed(2)}`;
-      },
-      getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              this.lat = position.coords.latitude;
-              this.lng = position.coords.longitude;
-              this.location = `Ubicación: ${this.lat.toFixed(4)}, ${this.lng.toFixed(4)}`;
-              
-              // Opcional: Usar API de geocodificación inversa para obtener dirección
-              // this.reverseGeocode(position.coords.latitude, position.coords.longitude);
-            },
-            (error) => {
-              console.error("Error getting location:", error);
-              alert("No se pudo obtener la ubicación. Asegúrate de haber permitido el acceso.");
-            }
-          );
-        } else {
-          alert("La geolocalización no es soportada por este navegador.");
-        }
-      },
-      requestPickup() {
-        if (!this.selectedBox) {
-          alert("Por favor selecciona un tamaño de caja.");
-          return;
-        }
-        
-        const selectedBoxData = this.getSelectedBox();
-        
-        const pickupRequest = {
-          customer: this.customerData,
-          quote: this.quoteData,
-          selectedBox: selectedBoxData,
-          price: this.calculatePrice(selectedBoxData),
-          location: this.location,
-          coordinates: { lat: this.lat, lng: this.lng },
-          timestamp: new Date().toISOString()
-        };
-        
-        // Aquí puedes enviar los datos al backend
-        console.log("Solicitud de recogida:", pickupRequest);
-        
-        // Mostrar confirmación
-        this.$swal.fire({
-          title: '¡Recogida solicitada!',
-          text: `Hemos recibido tu solicitud para ${selectedBoxData.dimensions}. Nos pondremos en contacto contigo pronto.`,
-          icon: 'success',
-          confirmButtonText: 'Entendido',
-          confirmButtonColor: '#3a7bd5'
-        });
-        
-        // Limpiar y redirigir
-        localStorage.removeItem('quoteCustomerData');
-        this.$router.push('/');
+        return this.validateCustomBox();
       }
     }
-  };
-  </script>
+  },
+  created() {
+    const savedData = localStorage.getItem('quoteCustomerData');
+    if (savedData) {
+      this.customerData = JSON.parse(savedData);
+    } else {
+      this.$router.push('/');
+    }
+  },
+  methods: {
+    updateAvailableBoxes() {
+      if (this.quoteData.destination) {
+        this.availableBoxes = BOX_SIZES;
+        this.quoteData.selectedStandardBox = null;
+      }
+    },
+    
+    validateCustomBox() {
+      const { height, length, width } = this.quoteData.customDimensions;
+      return height > 0 && length > 0 && width > 0;
+    },
+    
+    getSelectedBox() {
+      if (this.quoteData.boxType === 'standard') {
+        return BOX_SIZES.find(box => box.id === this.quoteData.selectedStandardBox);
+      } else {
+        return {
+          id: 'custom',
+          dimensions: `${this.quoteData.customDimensions.height}x${this.quoteData.customDimensions.length}x${this.quoteData.customDimensions.width} cm`,
+          basePrice: 60,
+          image: null
+        };
+      }
+    },
+    
+    calculatePrice(box) {
+      if (!box) return '$0.00';
+      
+      let price = box.basePrice;
+      
+      // Aumento por peso (ejemplo: $1.5 por libra después de 5 libras)
+      if (this.quoteData.weight > 5) {
+        price += (this.quoteData.weight - 5) * 1.5;
+      }
+      
+      // Aumento por valor declarado (ejemplo: 3% del valor declarado)
+      if (this.quoteData.declaredValue) {
+        price += this.quoteData.declaredValue * 0.03;
+      }
+      
+      // Aumento por distancia (ejemplo basado en países)
+      if (this.quoteData.destination) {
+        // Países con mayor costo
+        const premiumDestinations = ['China', 'España'];
+        if (premiumDestinations.includes(this.quoteData.destination)) {
+          price += 20;
+        } else {
+          price += 10;
+        }
+      }
+      
+      // Aumento adicional para cajas personalizadas
+      if (this.quoteData.boxType === 'custom') {
+        price += 15;
+      }
+      
+      return `$${price.toFixed(2)}`;
+    },
+    
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.lat = position.coords.latitude;
+            this.lng = position.coords.longitude;
+            this.location = `Ubicación: ${this.lat.toFixed(4)}, ${this.lng.toFixed(4)}`;
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+            alert("No se pudo obtener la ubicación. Asegúrate de haber permitido el acceso.");
+          }
+        );
+      } else {
+        alert("La geolocalización no es soportada por este navegador.");
+      }
+    },
+    
+    requestPickup() {
+      if (!this.isFormValid) {
+        alert("Por favor completa todos los campos requeridos.");
+        return;
+      }
+      
+      const selectedBoxData = this.getSelectedBox();
+      
+      const pickupRequest = {
+        customer: this.customerData,
+        quote: this.quoteData,
+        selectedBox: selectedBoxData,
+        price: this.calculatePrice(selectedBoxData),
+        location: this.location,
+        coordinates: { lat: this.lat, lng: this.lng },
+        timestamp: new Date().toISOString()
+      };
+      
+      console.log("Solicitud de recogida:", pickupRequest);
+      
+      this.$swal.fire({
+        title: '¡Recogida solicitada!',
+        text: `Hemos recibido tu solicitud para ${selectedBoxData.dimensions}. Nos pondremos en contacto contigo pronto.`,
+        icon: 'success',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#3a7bd5'
+      });
+      
+      localStorage.removeItem('quoteCustomerData');
+      this.$router.push('/');
+    }
+  }
+};
+</script>
   
   <style scoped>
   .quote-simulator-page {

@@ -17,7 +17,7 @@
                   </svg>
                 </div>
                 <h3 class="feature-title">Rápido</h3>
-                <p class="feature-text">Entrega express en 3-5 días</p>
+                <p class="feature-text">Salidas semanales</p>
               </div>
   
               <div class="feature">
@@ -159,7 +159,7 @@
   .quote-content {
     flex: 1;
     padding: 3rem;
-    background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+    background: linear-gradient(135deg, #ff3333 0%, #8f0000 100%);
     color: white;
   }
   
@@ -317,7 +317,7 @@
   .submit-button {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+    background: linear-gradient(135deg, #ff1f1f 0%, #a00000 100%);
     color: white;
     border: none;
     border-radius: 8px;
