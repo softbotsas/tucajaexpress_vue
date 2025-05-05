@@ -44,7 +44,7 @@ const closeChat = () => { isChatOpen.value = false; };
 
 // --- Datos y Lógica de Envío (del segundo componente) ---
 const message = ref("");
-const phoneNumber = '573015537673'; // Teléfono del segundo componente
+const phoneNumber = '17044678540'; // Teléfono del segundo componente
 // Se añaden constantes para el header que usa el segundo componente
 const profilePicture = '/images/logo.jpg'; // <-- ASEGÚRATE QUE ESTA RUTA SEA VÁLIDA
 const supportName = 'Tu Caja Express'; // <-- NOMBRE DEL SEGUNDO COMPONENTE

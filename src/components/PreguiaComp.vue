@@ -92,7 +92,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const showPopup = ref(false);
 const showTextHint = ref(false);
-const preguiaLink = ref('https://sistematce.com/tuagencia/675992913f74b5e4ba3479a6/Agencia%20Prueba%20Yorman(No%20Usar)');
+const preguiaLink = ref('http://sistematce.com/tuagencia/67479d8a1f62426613df176a/Tu%20Caja%20Express%20Web');
 let hintInterval = null;
 let hintTimeout = null;
 

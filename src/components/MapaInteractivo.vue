@@ -301,7 +301,7 @@ export default {
     /* Capa oscura semi-transparente */
     linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     /* Imagen de fondo con desenfoque */
-    url('/images/background.jpeg') center/cover no-repeat;
+    url('/images/background.jpg') center/cover no-repeat;
   
   /* Efecto de desenfoque para el fondo */
   backdrop-filter: blur(2px);

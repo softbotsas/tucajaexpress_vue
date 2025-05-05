@@ -69,6 +69,17 @@
             Extensa red de rutas semanales para la recolección eficiente en todo Estados Unidos.
           </p>
         </div>
+
+        <!-- Tarjeta 4: Transporte Maritimo-->
+        <div class="service-card animate__animated animate__zoomIn" data-wow-delay="0.4s">
+          <div class="service-icon-wrapper icon-style-4">
+            <i class="fas fa-water"></i>
+          </div>
+          <h3 class="service-title">Envíos Maritimos</h3>
+          <p class="service-description">
+            Conexiones marítimas directas con los mejores tiempos de tránsito y tarifas competitivas.
+          </p>
+        </div>
       </div> <!-- Fin services-grid -->
     </div> <!-- Fin container -->
   </section>
@@ -99,11 +110,12 @@
             Conviértete en <span class="highlight">Agente Autorizado</span><br>de Nuestra Red
           </h2>
           <p class="agent-description">
-            ¿Tienes una agencia de envíos en USA? Únete a nuestra red como punto oficial
+            ¿Tienes una tienda latina o hispana en USA? Únete a nuestra red como punto oficial
             de recepción y despacho para México y Centroamérica. Atrae más clientes,
             incrementa tus ingresos y benefíciate de nuestra infraestructura y marca.
           </p>
           <ul class="agent-benefits">
+            <h6 class="beneficios-agente">Beneficios</h6>
             <li><i class="fas fa-warehouse benefit-icon"></i> Incrementa el flujo de clientes a tu local</li>
             <li><i class="fas fa-hand-holding-usd benefit-icon"></i> Comisiones competitivas por manejo y envío</li>
             <li><i class="fas fa-cogs benefit-icon"></i> Acceso a nuestro sistema y tecnología logística</li>
@@ -221,7 +233,7 @@
 .services-grid {
   display: grid;
   /* 4 columnas en escritorio, 2 en tablet, 1 en móvil */
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px; /* Espacio entre tarjetas */
 }
 
@@ -261,13 +273,16 @@
 
 /* Estilos de color diferentes para cada icono */
 .icon-style-1 { background-color: var(--primary-color); } /* Rojo */
-.icon-style-2 { background-color: var(--accent-blue); }    /* Azul */
+.icon-style-2 { background-color: var(--accent-orange); }    /* Azul */
 .icon-style-3 { background-color: var(--accent-green); }  /* Verde */
-.icon-style-4 { background-color: var(--accent-orange); } /* Naranja */
+.icon-style-4 { background-color: var(--accent-blue); } /* Naranja */
 
 .service-card:hover .service-icon-wrapper {
     /* Opcional: Cambiar color del icono al hover? */
     /* background-color: var(--dark-color); */
+}
+.beneficios-agente {
+  color: #db3d3d;
 }
 
 

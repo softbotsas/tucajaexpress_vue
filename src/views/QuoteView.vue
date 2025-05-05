@@ -139,17 +139,30 @@
                     Valor declarado
                   </h3>
                   <div class="form-group">
-                    <label for="declaredValue">Valor mínimo declarado (USD)</label>
-                    <input 
-                      v-model.number="quoteData.declaredValue" 
-                      type="number" 
-                      id="declaredValue" 
-                      class="form-input" 
-                      placeholder="Ej: 100"
-                      min="0"
-                      @input="calculatePrice">
-                  </div>
+                  <label for="declaredValue">Valor declarado (USD)</label>
+                  <input 
+                    v-model.number="quoteData.declaredValue" 
+                    type="number" 
+                    id="declaredValue" 
+                    class="form-input" 
+                    placeholder="Ej: 100"
+                    min="0"
+                    max="500"
+                    @input="validateDeclaredValue">
+                  <p class="input-hint">Máximo $500. El seguro será calculado como 5% de este valor (mínimo $10, máximo $25)</p>
+                  <p v-if="declaredValueError" class="error-message">{{ declaredValueError }}</p>
                 </div>
+                
+                <div class="form-group" v-if="quoteData.declaredValue && quoteData.declaredValue > 0 && !declaredValueError">
+                  <label class="checkbox-option">
+                    <input 
+                      type="checkbox" 
+                      v-model="quoteData.includeInsurance">
+                    <span class="checkmark"></span>
+                    Añadir seguro por {{ calculateInsuranceCost() }} (Cubre ${{ Math.min(quoteData.declaredValue, 500).toFixed(2) }})
+                  </label>
+                </div>
+              </div>
 
                 <div class="form-section">
                   <h3 class="section-title">
@@ -239,12 +252,9 @@
                     <div class="box-features">
                       <div class="feature">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                          <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                         </svg>
-                        Seguro incluido
+                        Seguro disponible: {{ calculateInsuranceCost() }}
                       </div>
                       <div class="feature">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -284,12 +294,9 @@
                     <div class="box-features">
                       <div class="feature">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                          <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                         </svg>
-                        Seguro incluido
+                        Seguro disponible: {{ calculateInsuranceCost() }}
                       </div>
                       <div class="feature">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -322,9 +329,20 @@
                   <span class="detail-label">Valor declarado:</span>
                   <span class="detail-value">${{ quoteData.declaredValue.toFixed(2) }}</span>
                 </div>
+                <div v-if="(quoteData.boxType === 'standard' && quoteData.selectedStandardBox) || (quoteData.boxType === 'custom' && validateCustomBox())" class="detail-row">
+                  <span class="detail-label">Precio envío:</span>
+                  <span class="detail-value">{{ calculatePrice(getSelectedBox()) }}</span>
+                </div>
+                <div v-if="quoteData.includeInsurance && quoteData.declaredValue && quoteData.declaredValue > 0" class="detail-row">
+                  <span class="detail-label">Seguro:</span>
+                  <span class="detail-value">{{ calculateInsuranceCost() }} (Cubre ${{
+                    quoteData.declaredValue >= 500 ? '500' : 
+                    quoteData.declaredValue >= 200 ? quoteData.declaredValue.toFixed(2) : '200'
+                  }})</span>
+                </div>
                 <div v-if="(quoteData.boxType === 'standard' && quoteData.selectedStandardBox) || (quoteData.boxType === 'custom' && validateCustomBox())" class="detail-row total-row">
                   <span class="detail-label">Total estimado:</span>
-                  <span class="detail-value total-price">{{ calculatePrice(getSelectedBox()) }}</span>
+                  <span class="detail-value total-price">{{ calculateTotalPrice() }}</span>
                 </div>
               </div>
               <button 
@@ -347,6 +365,8 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
+
 const BOX_SIZES = [
   { id: '16x16x16', dimensions: '16x16x16 cm', basePrice: 25, image: '/images/16x16x16.png' },
   { id: '18x18x18', dimensions: '18x18x18 cm', basePrice: 30, image: '/images/18x18x18.png' },
@@ -359,9 +379,24 @@ const BOX_SIZES = [
 
 export default {
   name: 'QuoteSimulator',
+  setup() {
+    const route = useRoute();
+    let customerData = {};
+
+    if (route.query.customer) {
+      try {
+        customerData = JSON.parse(decodeURIComponent(route.query.customer));
+      } catch (e) {
+        console.error("Error parsing customer data:", e);
+      }
+    }
+
+    return {
+      customerData
+    };
+  },
   data() {
     return {
-      customerData: {},
       quoteData: {
         origin: 'Estados Unidos',
         destination: '',
@@ -374,11 +409,13 @@ export default {
         },
         weight: null,
         declaredValue: null,
+        includeInsurance: false,
         address: '',
         location: null,
         lat: null,
         lng: null
       },
+      declaredValueError: null,
       countries: ['México', 'Colombia', 'España', 'China', 'República Dominicana', 'Perú', 'Chile', 'Argentina'],
       availableBoxes: [],
       location: null,
@@ -403,15 +440,34 @@ export default {
       }
     }
   },
-  created() {
-    const savedData = localStorage.getItem('quoteCustomerData');
-    if (savedData) {
-      this.customerData = JSON.parse(savedData);
-    } else {
-      this.$router.push('/');
-    }
-  },
   methods: {
+    validateDeclaredValue() {
+      if (this.quoteData.declaredValue === null || this.quoteData.declaredValue === '') {
+        this.declaredValueError = null;
+        return;
+      }
+      
+      const value = parseFloat(this.quoteData.declaredValue);
+      
+      if (isNaN(value)) {
+        this.declaredValueError = 'Por favor ingresa un valor numérico válido';
+        return;
+      }
+      
+      if (value < 0) {
+        this.declaredValueError = 'El valor no puede ser negativo';
+        return;
+      }
+      
+      if (value > 500) {
+        this.quoteData.declaredValue = 500;
+        this.declaredValueError = 'El valor máximo permitido es $500';
+        return;
+      }
+      
+      this.declaredValueError = null;
+    },
+
     updateAvailableBoxes() {
       if (this.quoteData.destination) {
         this.availableBoxes = BOX_SIZES;
@@ -447,11 +503,6 @@ export default {
         price += (this.quoteData.weight - 5) * 1.5;
       }
       
-      // Aumento por valor declarado (ejemplo: 3% del valor declarado)
-      if (this.quoteData.declaredValue) {
-        price += this.quoteData.declaredValue * 0.03;
-      }
-      
       // Aumento por distancia (ejemplo basado en países)
       if (this.quoteData.destination) {
         // Países con mayor costo
@@ -469,6 +520,44 @@ export default {
       }
       
       return `$${price.toFixed(2)}`;
+    },
+
+    calculateInsuranceCost() {
+      if (!this.quoteData.declaredValue || this.quoteData.declaredValue <= 0) {
+        return '$0.00';
+      }
+
+      // Calculamos el 5% del valor declarado
+      let insuranceCost = this.quoteData.declaredValue * 0.05;
+
+      // Aplicamos mínimo y máximo
+      insuranceCost = Math.max(insuranceCost, 10); // Mínimo $10
+      insuranceCost = Math.min(insuranceCost, 25); // Máximo $25
+
+      return `$${insuranceCost.toFixed(2)}`;
+    },
+
+    calculateTotalPrice() {
+      if (!this.quoteData.selectedStandardBox && this.quoteData.boxType === 'standard') {
+        return '$0.00';
+      }
+
+      if (this.quoteData.boxType === 'custom' && !this.validateCustomBox()) {
+        return '$0.00';
+      }
+
+      const box = this.getSelectedBox();
+      const basePrice = parseFloat(this.calculatePrice(box).replace('$', ''));
+      let insuranceCost = 0;
+
+      if (this.quoteData.includeInsurance && this.quoteData.declaredValue && this.quoteData.declaredValue > 0) {
+        insuranceCost = this.quoteData.declaredValue * 0.05;
+        insuranceCost = Math.max(insuranceCost, 10);
+        insuranceCost = Math.min(insuranceCost, 25);
+      }
+
+      const total = parseFloat(basePrice) + parseFloat(insuranceCost);
+      return `$${total.toFixed(2)}`;
     },
     
     getLocation() {
@@ -496,12 +585,15 @@ export default {
       }
       
       const selectedBoxData = this.getSelectedBox();
+      const insuranceInfo = this.quoteData.includeInsurance ? this.calculateInsuranceCost() : 'No incluido';
+      const totalPrice = this.calculateTotalPrice();
       
       const pickupRequest = {
         customer: this.customerData,
         quote: this.quoteData,
         selectedBox: selectedBoxData,
-        price: this.calculatePrice(selectedBoxData),
+        insurance: insuranceInfo,
+        price: totalPrice,
         location: this.location,
         coordinates: { lat: this.lat, lng: this.lng },
         timestamp: new Date().toISOString()
@@ -511,530 +603,609 @@ export default {
       
       this.$swal.fire({
         title: '¡Recogida solicitada!',
-        text: `Hemos recibido tu solicitud para ${selectedBoxData.dimensions}. Nos pondremos en contacto contigo pronto.`,
+        html: `
+          <p>Hemos recibido tu solicitud para ${selectedBoxData.dimensions}.</p>
+          <p><strong>Precio envío:</strong> ${this.calculatePrice(selectedBoxData)}</p>
+          ${this.quoteData.includeInsurance ? `<p><strong>Seguro:</strong> ${insuranceInfo}</p>` : ''}
+          <p><strong>Total:</strong> ${totalPrice}</p>
+          <p>Nos pondremos en contacto contigo pronto.</p>
+        `,
         icon: 'success',
         confirmButtonText: 'Entendido',
         confirmButtonColor: '#3a7bd5'
       });
       
-      localStorage.removeItem('quoteCustomerData');
       this.$router.push('/');
     }
   }
 };
 </script>
-  
-  <style scoped>
-  .quote-simulator-page {
-    background-color: #f8f9fa;
-    min-height: 100vh;
-  }
-  
-  .simulator-hero {
-    background: linear-gradient(135deg, #7a0800 0%, #960500 100%);
-    color: white;
-    padding: 5rem 0 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .simulator-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('/img/wave-pattern.png') repeat;
-    opacity: 0.1;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-  }
-  
-  .hero-content {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .hero-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.25rem;
-    opacity: 0.9;
-    margin-bottom: 2rem;
-  }
-  
-  .breadcrumbs {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9375rem;
-  }
-  
-  .breadcrumb-link {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .breadcrumb-link:hover {
-    color: white;
-    text-decoration: underline;
-  }
-  
-  .breadcrumb-separator {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  
-  .breadcrumb-current {
-    color: white;
-    font-weight: 500;
-  }
-  
-  .simulator-container {
-    padding: 3rem 0;
-  }
-  
+
+<style scoped>
+.quote-simulator-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.simulator-hero {
+  background: linear-gradient(135deg, #7a0800 0%, #960500 100%);
+  color: white;
+  padding: 5rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.simulator-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/img/wave-pattern.png') repeat;
+  opacity: 0.1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.breadcrumbs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.breadcrumb-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.breadcrumb-current {
+  color: white;
+  font-weight: 500;
+}
+
+.simulator-container {
+  padding: 3rem 0;
+}
+
+.simulator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+}
+
+.form-column {
+  position: relative;
+}
+
+.form-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: sticky;
+  top: 2rem;
+}
+
+.form-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+  font-size: 0.9375rem;
+  color: #7f8c8d;
+  margin-bottom: 0;
+}
+
+.form-body {
+  padding: 1.5rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.input-hint {
+  font-size: 0.75rem;
+  color: #7f8c8d;
+  margin-top: 0.25rem;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
+  outline: none;
+  background-color: white;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  user-select: none;
+  margin-top: 0.5rem;
+}
+
+.checkbox-option input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.checkbox-option:hover input ~ .checkmark {
+  background-color: #e9ecef;
+}
+
+.checkbox-option input:checked ~ .checkmark {
+  background-color: #3a7bd5;
+  border-color: #3a7bd5;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-option input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-option .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.location-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.location-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f3f5;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.location-button:hover {
+  background: #e9ecef;
+}
+
+.map-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #3a7bd5;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.map-link:hover {
+  text-decoration: underline;
+}
+
+.results-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.customer-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.customer-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.customer-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.customer-info {
+  flex: 1;
+}
+
+.customer-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.25rem;
+}
+
+.customer-contact {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+  margin-bottom: 0;
+}
+
+.results-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.results-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.results-subtitle {
+  font-size: 0.9375rem;
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: #f1f3f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3a7bd5;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.empty-text {
+  font-size: 0.9375rem;
+  color: #7f8c8d;
+  margin-bottom: 0;
+}
+
+.box-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.box-option {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.box-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.box-option.selected {
+  border-color: #3a7bd5;
+  box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+}
+
+.box-image-container {
+  width: 120px;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.box-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.box-dimensions {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #7f8c8d;
+}
+
+.box-details {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.box-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.box-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #7f8c8d;
+}
+
+.feature svg {
+  color: #3a7bd5;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.summary-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.summary-details {
+  margin-bottom: 1.5rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.detail-label {
+  color: #7f8c8d;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.total-row {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f3f5;
+}
+
+.total-row .detail-label {
+  font-weight: 600;
+}
+
+.total-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3a7bd5;
+}
+
+.request-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.request-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+}
+
+.request-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 992px) {
   .simulator-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 2rem;
-  }
-  
-  .form-column {
-    position: relative;
+    grid-template-columns: 1fr;
   }
   
   .form-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    position: sticky;
-    top: 2rem;
-  }
-  
-  .form-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid #f1f3f5;
-  }
-  
-  .form-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-subtitle {
-    font-size: 0.9375rem;
-    color: #7f8c8d;
-    margin-bottom: 0;
-  }
-  
-  .form-body {
-    padding: 1.5rem;
-  }
-  
-  .form-section {
-    margin-bottom: 2rem;
-  }
-  
-  .section-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    position: static;
   }
   
   .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-group label {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: #f8f9fa;
-  }
-  
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    border-color: #3a7bd5;
-    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.1);
-    outline: none;
-    background-color: white;
-  }
-  
-  .form-textarea {
-    min-height: 100px;
-    resize: vertical;
-  }
-  
-  .location-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .location-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #f1f3f5;
-    border: none;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    color: #2c3e50;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .location-button:hover {
-    background: #e9ecef;
-  }
-  
-  .map-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: #3a7bd5;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .map-link:hover {
-    text-decoration: underline;
-  }
-  
-  .results-column {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .customer-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-  }
-  
-  .customer-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .customer-avatar {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-  }
-  
-  .customer-info {
-    flex: 1;
-  }
-  
-  .customer-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.25rem;
-  }
-  
-  .customer-contact {
-    font-size: 0.875rem;
-    color: #7f8c8d;
-    margin-bottom: 0;
-  }
-  
-  .results-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    padding: 1.5rem;
-    flex: 1;
-  }
-  
-  .results-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  .results-subtitle {
-    font-size: 0.9375rem;
-    color: #7f8c8d;
-    margin-bottom: 1.5rem;
-  }
-  
-  .empty-state {
-    text-align: center;
-    padding: 2rem 0;
-  }
-  
-  .empty-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1rem;
-    background: #f1f3f5;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3a7bd5;
-  }
-  
-  .empty-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  .empty-text {
-    font-size: 0.9375rem;
-    color: #7f8c8d;
-    margin-bottom: 0;
-  }
-  
-  .box-options {
-    display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
   }
   
   .box-option {
-    display: flex;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .box-option:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .box-option.selected {
-    border-color: #3a7bd5;
-    box-shadow: 0 0 0 3px rgba(58, 123, 213, 0.2);
+    flex-direction: column;
   }
   
   .box-image-container {
-    width: 120px;
-    background: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    position: relative;
-  }
-  
-  .box-image {
     width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-  
-  .box-dimensions {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #7f8c8d;
-  }
-  
-  .box-details {
-    flex: 1;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .box-price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 1rem;
-  }
-  
-  .box-features {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: auto;
-  }
-  
-  .feature {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: #7f8c8d;
-  }
-  
-  .summary-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     padding: 1.5rem;
   }
-  
-  .summary-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f1f3f5;
-  }
-  
-  .summary-details {
-    margin-bottom: 1.5rem;
-  }
-  
-  .detail-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.75rem;
-  }
-  
-  .detail-label {
-    font-size: 0.9375rem;
-    color: #7f8c8d;
-  }
-  
-  .detail-value {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: #2c3e50;
-  }
-  
-  .total-row {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #f1f3f5;
-  }
-  
-  .total-row .detail-label {
-    font-weight: 600;
-  }
-  
-  .total-price {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #3a7bd5;
-  }
-  
-  .request-button {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .request-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
-  }
-  
-  .request-button:disabled {
-    background: #95a5a6;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-  
-  @media (max-width: 992px) {
-    .simulator-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .form-card {
-      position: static;
-    }
-    
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .hero-title {
-      font-size: 2rem;
-    }
-    
-    .hero-subtitle {
-      font-size: 1rem;
-    }
-    
-    .box-option {
-      flex-direction: column;
-    }
-    
-    .box-image-container {
-      width: 100%;
-      padding: 1.5rem;
-    }
-  }
-  </style>
+}
+</style>
