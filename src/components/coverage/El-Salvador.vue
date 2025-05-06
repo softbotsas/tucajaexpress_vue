@@ -242,7 +242,7 @@
         <h2>¿Envíos a El Salvador?</h2>
         <p>Comienza hoy con nuestro servicio confiable</p>
         <button class="btn-primary btn-large" @click="scrollToQuote">
-          <i class="fas fa-paper-plane"></i> Iniciar Envío
+          <i class="fas fa-paper-plane"></i> Cotizar Ahora
         </button>
       </div>
     </section>
@@ -287,7 +287,7 @@ const scrollToQuote = () => {
   if (quoteSection) {
     quoteSection.scrollIntoView({ behavior: 'smooth' });
   } else {
-    router.push('/cotizar?destino=elsalvador');
+    router.push('/cotizar-form');
   }
 };
 </script>

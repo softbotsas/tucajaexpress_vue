@@ -14,10 +14,10 @@
           </h1>
           <p class="hero-subtitle">Conectamos Estados Unidos con la tierra de lagos y volcanes</p>
           <div class="cta-buttons">
-            <router-link to="/cotizar?destino=nicaragua" class="btn-primary">
+            <router-link to="/cotizar-form" class="btn-primary">
               <i class="fas fa-paper-plane"></i> Cotizar Envío
             </router-link>
-            <router-link to="/contacto?asunto=EnvioNicaragua" class="btn-outline">
+            <router-link to="/contactanos" class="btn-outline">
               <i class="fas fa-headset"></i> Contactar Asesor
             </router-link>
           </div>
@@ -206,7 +206,7 @@
           <h2>¿Envíos a Nicaragua?</h2>
           <p>Comienza hoy con nuestro servicio confiable</p>
           <button class="btn-primary btn-large" @click="scrollToQuote">
-            <i class="fas fa-paper-plane"></i> Iniciar Envío
+            <i class="fas fa-paper-plane"></i> Cotizar Ahora
           </button>
         </div>
       </section>
@@ -252,7 +252,7 @@
     if (quoteSection) {
       quoteSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      router.push('/cotizar?destino=nicaragua');
+      router.push('/cotizar-form');
     }
   };
   </script>

@@ -242,7 +242,7 @@
         <h2>¿Listo para enviar a México?</h2>
         <p>Comienza hoy mismo con nuestro servicio confiable y eficiente</p>
         <button class="btn-primary btn-large" @click="scrollToQuote">
-          <i class="fas fa-paper-plane"></i> Iniciar Envío
+          <i class="fas fa-paper-plane"></i> Cotiza Ahora
         </button>
       </div>
     </section>
@@ -287,7 +287,7 @@ const scrollToQuote = () => {
   if (quoteSection) {
     quoteSection.scrollIntoView({ behavior: 'smooth' });
   } else {
-    router.push('/cotizar?destino=mexico');
+    router.push('/cotizar-form');
   }
 };
 </script>

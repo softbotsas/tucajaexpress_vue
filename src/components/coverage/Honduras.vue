@@ -206,7 +206,7 @@
           <h2>¿Listo para enviar a Honduras?</h2>
           <p>Comienza hoy mismo con nuestro servicio confiable y eficiente</p>
           <button class="btn-primary btn-large">
-            <i class="fas fa-paper-plane"></i> Iniciar Envío
+            <i class="fas fa-paper-plane"></i> Cotizar Ahora
           </button>
         </div>
       </section>
@@ -214,7 +214,36 @@
   </template>
   
   <script setup>
-  // Lógica para interactividad si es necesaria
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const lightboxVisible = ref(false);
+const currentImage = ref('');
+
+const showFullCoverage = () => {
+  alert('Mostrar modal con cobertura completa para México');
+};
+
+const openLightbox = (image) => {
+  currentImage.value = image;
+  lightboxVisible.value = true;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeLightbox = () => {
+  lightboxVisible.value = false;
+  document.body.style.overflow = '';
+};
+
+const scrollToQuote = () => {
+  const quoteSection = document.querySelector('#quote-section');
+  if (quoteSection) {
+    quoteSection.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    router.push('/cotizar-form');
+  }
+};
   </script>
   
   <style scoped>

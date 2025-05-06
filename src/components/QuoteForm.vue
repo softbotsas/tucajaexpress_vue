@@ -1,4 +1,20 @@
 <template>
+    <div class="quote-container">
+    <!-- Nuevo título gráfico -->
+    <div class="graphic-header">
+      <div class="graphic-title-wrapper">
+        <h1 class="graphic-title">Cotiza ahora!</h1>
+        <div class="graphic-decoration">
+          <div class="decoration-line"></div>
+          <div class="decoration-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="decoration-line"></div>
+        </div>
+      </div>
+    </div>
   <section class="quote-request-section">
     <div class="container">
       <div class="quote-card">
@@ -102,6 +118,7 @@
       </div>
     </div>
   </section>
+    </div>
 </template>
 
 <script>
@@ -139,6 +156,102 @@ export default {
 </script>
 
 <style scoped>
+/* Estilos para el nuevo encabezado gráfico */
+.quote-container {
+  padding-top: 2rem;
+}
+
+.graphic-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.graphic-title-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.graphic-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #d70000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(135deg, #ff3333 0%, #8f0000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.graphic-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+}
+
+.decoration-line {
+  height: 2px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, #ff3333, transparent);
+}
+
+.decoration-dots {
+  display: flex;
+  margin: 0 15px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ff3333;
+  border-radius: 50%;
+  margin: 0 5px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.3s; }
+.dot:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .graphic-title {
+    font-size: 2.5rem;
+  }
+  
+  .decoration-line {
+    width: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .graphic-title {
+    font-size: 2rem;
+  }
+  
+  .graphic-decoration {
+    bottom: -10px;
+  }
+  
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+}
 .quote-request-section {
   padding: 4rem 0;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
